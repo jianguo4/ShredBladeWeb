@@ -6,8 +6,8 @@ services:
       context: .
       dockerfile: Dockerfile
     container_name: shredblade-backend
-    ports:
-      - "3001:3001"
+    # ports:
+    #   - "3001:3001"
     environment:
       - PORT=3001
       - HOST=0.0.0.0
