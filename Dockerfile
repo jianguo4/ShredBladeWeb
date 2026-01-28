@@ -3,6 +3,9 @@ FROM node:22-alpine
 
 WORKDIR /app/backend
 
+# 安装 curl（用于健康检查）
+RUN apk add --no-cache curl
+
 # 复制后端 package.json
 COPY app/backend/package*.json ./
 
