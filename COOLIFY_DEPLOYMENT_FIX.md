@@ -1,16 +1,39 @@
-# Coolify 部署配置指南 - API 安全认证
+# Coolify 部署配置指南 - API 安全认证与端口配置
 
 ## 问题说明
 
-部署后发现两个问题：
+部署后发现三个问题：
 1. ❌ 没有账密登录保护
-2. ❌ Failed to load inquiries
+2. ❌ Failed to load inquiries  
+3. ❌ 端口 80/443 已被占用（Coolify 反向代理冲突）
 
 ## 原因分析
 
-Coolify 部署的是 `deploy/` 目录下的代码，该目录中的文件是旧版本，没有包含认证功能。
+1. Coolify 部署的是 `deploy/` 目录下的代码，该目录中的文件是旧版本
+2. `docker-compose.yml` 直接绑定了端口 80 和 443，但 Coolify 使用自己的反向代理管理这些端口
+3. 导致 Docker 容器启动失败：`Bind for :::80 failed: port is already allocated`
 
 ## 解决方案
+
+### 步骤 0: 修复 docker-compose.yml 端口配置
+
+**问题**: 原始 `docker-compose.yml` 绑定了端口 80 和 443，与 Coolify 反向代理冲突
+
+**解决**: 已更新为以下配置：
+
+```yaml
+frontend:
+  ports:
+    - "3000:80"    # 前端内部使用 80，映射到主机 3000
+  
+backend:
+  ports:
+    - "3001:3001"  # 后端映射到 3001
+```
+
+Coolify 会在其反向代理中配置：
+- `www.shredderbladesdirect.com` → `localhost:3000`
+- `api.shredderbladesdirect.com` → `localhost:3001`
 
 ### 步骤 1: 同步最新代码到 deploy 目录
 
@@ -19,6 +42,7 @@ Coolify 部署的是 `deploy/` 目录下的代码，该目录中的文件是旧�
 更新的文件：
 - `server.js` - 包含认证中间件
 - `admin.html` - 支持认证凭据的前端
+- `docker-compose.yml` - 修复了端口配置
 
 ### 步骤 2: 在 Coolify 中配置环境变量
 
@@ -46,33 +70,39 @@ HOST=0.0.0.0
 NODE_ENV=production
 ```
 
-### 步骤 3: 提交并推送代码
+### 步骤 3: 在 Coolify 中配置端口映射
+
+1. 登录 Coolify 控制面板
+2. 选择您的应用 → Settings
+3. **Port Mappings** 部分：
+   - Frontend Service: `3000` (Coolify 代理到 domain:80/443)
+   - Backend Service: `3001` (Coolify 代理到 api.domain)
+
+### 步骤 4: 提交并推送代码
 
 ```bash
 # 查看更改
 git status
 
 # 添加更改的文件
-git add deploy/backend/server.js
-git add deploy/backend/admin.html
-git add sync-to-deploy.bat
+git add docker-compose.yml
 git add COOLIFY_DEPLOYMENT_FIX.md
 
 # 提交
-git commit -m "fix: sync authentication code to deploy directory for Coolify"
+git commit -m "fix: update docker-compose port config for Coolify deployment"
 
 # 推送到远程
 git push origin main
 ```
 
-### 步骤 4: 在 Coolify 中重新部署
+### 步骤 5: 在 Coolify 中重新部署
 
 1. 登录 Coolify 控制面板
 2. 找到您的应用
 3. 点击 "Redeploy" 或 "Deploy" 按钮
-4. 等待部署完成
+4. 等待部署完成（查看日志确认没有端口错误）
 
-### 步骤 5: 验证部署
+### 步骤 6: 验证部署
 
 #### 测试 1: 访问 API
 ```bash
