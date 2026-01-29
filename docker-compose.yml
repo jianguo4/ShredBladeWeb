@@ -34,6 +34,11 @@ services:
       - EMAIL_PASSWORD=${EMAIL_PASSWORD}
       - NOTIFICATION_EMAIL=${NOTIFICATION_EMAIL}
       - EMAIL_FROM_NAME=ShredBlade Direct
+      # Admin Authentication
+      - ADMIN_USERNAME=${ADMIN_USERNAME:-admin}
+      - ADMIN_PASSWORD=${ADMIN_PASSWORD:-changeme123}
+      # IP Whitelist (comma-separated, optional)
+      - ALLOWED_IPS=${ALLOWED_IPS:-}
     volumes:
       - backend-data:/app/backend
     restart: unless-stopped
