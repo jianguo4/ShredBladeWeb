@@ -89,33 +89,21 @@ export default function Index() {
       {/* Hero Section with Full-Width Video Background */}
       <section 
         className="relative h-screen bg-gradient-to-br from-gray-800 via-gray-900 to-gray-950 text-gray-900 overflow-hidden flex items-center justify-end"
-        style={{ position: 'relative', height: '100vh', overflow: 'hidden' }}
       >
         {/* 静态背景 - 始终显示，避免白屏 - 这就是首屏内容 */}
-        <div className="absolute inset-0 bg-gradient-to-br from-gray-800 via-gray-900 to-gray-950" 
-             style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }} />
+        <div className="absolute inset-0 bg-gradient-to-br from-gray-800 via-gray-900 to-gray-950" />
         
         {/* 视频背景 - 异步加载，不阻止首屏渲染 */}
         <video
           ref={videoRef}
-          style={{
-            position: 'absolute',
-            width: '100%',
-            height: '100%',
-            objectFit: 'cover',
-            top: 0,
-            left: 0,
-            zIndex: 0,
-            opacity: videoLoaded ? 1 : 0,
-            transition: 'opacity 1s ease-in-out'
-          }}
-          className="absolute inset-0 object-cover w-full h-full"
+          className={`absolute inset-0 object-cover w-full h-full transition-opacity duration-1000 ${
+            videoLoaded ? 'opacity-100' : 'opacity-0'
+          }`}
           autoPlay
           loop
           muted
           playsInline
           preload="none"
-          loading="lazy"
           onError={(e) => {
             console.error('Failed to load video:', e);
             setVideoLoaded(true);
