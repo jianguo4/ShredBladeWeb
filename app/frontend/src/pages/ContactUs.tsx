@@ -24,9 +24,8 @@ export default function ContactUs() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+    const apiBase = import.meta.env.VITE_API_BASE || window.location.origin;
     try {
-      const apiBase = import.meta.env.VITE_API_BASE || 'http://localhost:3001';
       const response = await fetch(`${apiBase}/api/inquiries`, {
         method: 'POST',
         headers: {
@@ -54,8 +53,7 @@ export default function ContactUs() {
       }
     } catch (error) {
       console.error('Network error:', error);
-      const apiBase = import.meta.env.VITE_API_BASE || 'http://localhost:3001';
-      alert(`Network error. Make sure the backend server is running on ${apiBase}`);
+      alert(`Network error. Make sure the backend server is reachable at ${apiBase}`);
     }
   };
 
