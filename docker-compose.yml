@@ -21,6 +21,8 @@ services:
       - ADMIN_PASSWORD=${ADMIN_PASSWORD:-changeme123}
       # IP Whitelist (comma-separated, optional)
       - ALLOWED_IPS=${ALLOWED_IPS:-}
+    expose:
+      - "3001"
     volumes:
       - backend-data:/app/backend
     restart: unless-stopped
