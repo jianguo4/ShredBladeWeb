@@ -61,21 +61,21 @@ export default function ContactUs() {
   const contactCards = [
     {
       label: 'Whatsapp',
-      line1: '+1 (555) 123-4567',
+      line1: '(+86)15551757389',
       line2: 'WhatsApp available',
       icon: <MessageSquare className="w-5 h-5" />,
-      link: 'https://wa.me/15551234567',
+      link: 'https://wa.me/8615551757389',
     },
     {
       label: 'General Inquiries',
-      line1: 'office@shredderblades.com',
-      line2: '+43 4762 2742-0',
+      line1: 'info@shredderbladesdirect.com',
+      line2: 'sales@shredderbladesdirect.com',
       icon: <Mail className="w-5 h-5" />,
     },
     {
       label: 'Factory Address',
-      line1: 'Industrial Zone, District A',
-      line2: 'Manufacturing City, China',
+      line1: "Bowang High-tech Industrial Development Zone",
+      line2: "Ma'anshan City, China",
       icon: <MapPin className="w-5 h-5" />,
     },
   ];

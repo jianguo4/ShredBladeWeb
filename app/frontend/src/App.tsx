@@ -2,21 +2,34 @@ import { Toaster } from '@/components/ui/sonner';
 import { TooltipProvider } from '@/components/ui/tooltip';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { HashRouter, Routes, Route, useLocation } from 'react-router-dom';
-import { useEffect } from 'react';
-import Index from './pages/Index';
-import ShredderBlades from './pages/ShredderBlades';
-import PlasticRecycling from './pages/PlasticRecycling';
-import MetalScrapShears from './pages/MetalScrapShears';
-import EWasteDataDestruction from './pages/EWasteDataDestruction';
-import TireShredderKnives from './pages/TireShredderKnives';
-import SolidWasteRDF from './pages/SolidWasteRDF';
-import MunicipalSolidWasteRecycling from './pages/MunicipalSolidWasteRecycling';
-import AboutUs from './pages/AboutUs';
-import ContactUs from './pages/ContactUs';
-import SingleShaftShredderBlades from './pages/SingleShaftShredderBlades';
-import DoubleShaftShredderBlades from './pages/DoubleShaftShredderBlades';
-import FourShaftShredderBlades from './pages/FourShaftShredderBlades';
-import NotFound from './pages/NotFound';
+import { useEffect, lazy, Suspense } from 'react';
+import CookieBanner from './components/CookieBanner';
+
+// Lazy load pages for better performance
+const Index = lazy(() => import('./pages/Index'));
+const ShredderBlades = lazy(() => import('./pages/ShredderBlades'));
+const PlasticRecycling = lazy(() => import('./pages/PlasticRecycling'));
+const MetalScrapShears = lazy(() => import('./pages/MetalScrapShears'));
+const EWasteDataDestruction = lazy(() => import('./pages/EWasteDataDestruction'));
+const TireShredderKnives = lazy(() => import('./pages/TireShredderKnives'));
+const SolidWasteRDF = lazy(() => import('./pages/SolidWasteRDF'));
+const MunicipalSolidWasteRecycling = lazy(() => import('./pages/MunicipalSolidWasteRecycling'));
+const AboutUs = lazy(() => import('./pages/AboutUs'));
+const ContactUs = lazy(() => import('./pages/ContactUs'));
+const SingleShaftShredderBlades = lazy(() => import('./pages/SingleShaftShredderBlades'));
+const DoubleShaftShredderBlades = lazy(() => import('./pages/DoubleShaftShredderBlades'));
+const FourShaftShredderBlades = lazy(() => import('./pages/FourShaftShredderBlades'));
+const NotFound = lazy(() => import('./pages/NotFound'));
+
+// Loading component
+const PageLoader = () => (
+  <div className="min-h-screen flex items-center justify-center bg-slate-50">
+    <div className="text-center">
+      <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-amber-500"></div>
+      <p className="mt-4 text-slate-600">Loading...</p>
+    </div>
+  </div>
+);
 
 const queryClient = new QueryClient();
 
@@ -37,7 +50,8 @@ const App = () => (
       <Toaster />
       <HashRouter>
         <ScrollToTop />
-        <Routes>
+        <Suspense fallback={<PageLoader />}>
+          <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/shredder-blades" element={<ShredderBlades />} />
           <Route path="/plastic-recycling-blades" element={<PlasticRecycling />} />
@@ -52,7 +66,9 @@ const App = () => (
           <Route path="/about-us" element={<AboutUs />} />
           <Route path="/contact-us" element={<ContactUs />} />
           <Route path="*" element={<NotFound />} />
-        </Routes>
+          </Routes>
+        </Suspense>
+        <CookieBanner />
       </HashRouter>
     </TooltipProvider>
   </QueryClientProvider>

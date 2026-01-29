@@ -67,13 +67,13 @@ export default function Footer() {
             <ul className="space-y-2.5 text-sm text-gray-200">
               <li className="flex items-center gap-2">
                 <Mail className="h-4 w-4 flex-shrink-0" />
-                <a href="mailto:info@shredderblades.com" className="hover:text-white transition-colors duration-200">
-                  info@shredderblades.com
+                <a href="mailto:info@shredderbladesdirect.com" className="hover:text-white transition-colors duration-200">
+                  info@shredderbladesdirect.com
                 </a>
               </li>
               <li className="flex items-center gap-2">
                 <Phone className="h-4 w-4 flex-shrink-0" />
-                <span>+1 (555) 123-4567</span>
+                <span>(+86)15551757389</span>
               </li>
               <li>
                 <Link to="/contact-us" className="hover:text-white transition-colors duration-200">

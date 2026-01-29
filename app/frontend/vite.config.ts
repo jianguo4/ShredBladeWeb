@@ -2,6 +2,7 @@ import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react-swc';
 import path from 'path';
 import { viteSourceLocator } from '@metagptx/vite-plugin-source-locator';
+import { createHtmlPlugin } from 'vite-plugin-html';
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
@@ -11,6 +12,9 @@ export default defineConfig(({ mode }) => ({
       prefix: 'mgx',
     }),
     react(),
+    createHtmlPlugin({
+      minify: true,
+    }),
   ],
   server: {
     watch: { usePolling: true, interval: 800 /* 300~1500 */ },
@@ -34,8 +38,31 @@ export default defineConfig(({ mode }) => ({
           }
           return 'assets/[name]-[hash][extname]';
         },
-        // 关闭手动分块，避免多包加载顺序或缓存导致的运行时缺失
-        manualChunks: undefined,
+        // 优化代码分割策略
+        manualChunks: (id) => {
+          // 将 node_modules 中的依赖分离到 vendor chunk
+          if (id.includes('node_modules')) {
+            // 将大型库单独分离
+            if (id.includes('react') || id.includes('react-dom')) {
+              return 'react-vendor';
+            }
+            if (id.includes('lucide-react')) {
+              return 'icons-vendor';
+            }
+            if (id.includes('@tanstack')) {
+              return 'query-vendor';
+            }
+            return 'vendor';
+          }
+        },
+      },
+    },
+    // 启用压缩
+    minify: 'terser',
+    terserOptions: {
+      compress: {
+        drop_console: true, // 生产环境移除 console
+        drop_debugger: true,
       },
     },
   },

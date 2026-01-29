@@ -189,8 +189,8 @@ export default function Header() {
               </Button>
             </SheetTrigger>
             <SheetContent side="right" className="w-[300px] overflow-y-auto">
-              <nav className="flex flex-col space-y-4 mt-8">
-                <Link to="/" className="text-lg font-medium text-gray-700 hover:text-blue-900">
+              <nav className="flex flex-col space-y-4 mt-8 font-['Oswald'] uppercase tracking-wide">
+                <Link to="/" className="text-base font-bold text-gray-700 hover:text-blue-900">
                   Home
                 </Link>
                 
@@ -200,7 +200,7 @@ export default function Header() {
                     <Link
                       key={item.title}
                       to={item.href}
-                      className="block pl-4 text-gray-700 hover:text-blue-900"
+                      className="block pl-4 text-base font-bold text-gray-700 hover:text-blue-900"
                     >
                       {item.title}
                     </Link>
@@ -215,7 +215,7 @@ export default function Header() {
                       <Link
                         key={item.title}
                         to={item.href}
-                        className="block pl-2 text-sm text-gray-700 hover:text-blue-900"
+                        className="block pl-2 text-base font-bold text-gray-700 hover:text-blue-900"
                       >
                         {item.title}
                       </Link>
@@ -225,7 +225,7 @@ export default function Header() {
                       <Link
                         key={item.title}
                         to={item.href}
-                        className="block pl-2 text-sm text-gray-700 hover:text-blue-900"
+                        className="block pl-2 text-base font-bold text-gray-700 hover:text-blue-900"
                       >
                         {item.title}
                       </Link>
@@ -235,12 +235,12 @@ export default function Header() {
 
                 <Link
                   to="/about-us"
-                  className="text-lg font-medium text-gray-700 hover:text-blue-900"
+                  className="text-base font-bold text-gray-700 hover:text-blue-900"
                 >
                   About Us
                 </Link>
                 <Link to="/contact-us">
-                  <Button className="w-full bg-amber-500 hover:bg-amber-600 text-white">
+                  <Button className="w-full bg-amber-500 hover:bg-amber-600 text-white font-['Oswald'] uppercase tracking-wide">
                     Contact Us
                   </Button>
                 </Link>

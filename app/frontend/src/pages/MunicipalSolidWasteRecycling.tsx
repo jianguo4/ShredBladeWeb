@@ -73,6 +73,8 @@ export default function MunicipalSolidWasteRecycling() {
               src={mswImage}
               alt="MSW shredder blades handling mixed municipal waste"
               className="rounded-lg shadow-lg w-full h-full object-cover"
+              loading="lazy"
+              decoding="async"
             />
           </div>
           <div className="order-1 lg:order-2 h-full">
@@ -104,7 +106,7 @@ export default function MunicipalSolidWasteRecycling() {
             {PROBLEM_SOLUTIONS.map((solution) => (
               <div key={solution.title} className="flex flex-col h-full">
                 <div className="mb-6 aspect-[4/3] overflow-hidden">
-                  <img src={solution.image} alt={`MSW blade solution - ${solution.title}`} className="w-full h-full rounded-none object-cover" />
+                  <img src={solution.image} alt={`MSW blade solution - ${solution.title}`} className="w-full h-full rounded-none object-cover" loading="lazy" decoding="async" />
                 </div>
                 <h3 className="text-xl font-bold text-slate-900 mb-4">{solution.title}</h3>
                 <p className="text-slate-700 leading-relaxed flex-grow">{solution.description}</p>
@@ -127,7 +129,7 @@ export default function MunicipalSolidWasteRecycling() {
             <div className="flex gap-3 sm:gap-4 blade-gallery-scroll">
               {[...bladeImages, ...bladeImages].map((image, index) => (
                 <div key={`${image.src}-${index}`} className="group flex-shrink-0 w-[280px] h-[280px] sm:w-[300px] sm:h-[300px] overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300">
-                  <img src={image.src} alt={image.alt} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" loading="lazy" />
+                  <img src={image.src} alt={image.alt} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" loading="lazy" decoding="async" />
                 </div>
               ))}
             </div>

@@ -74,7 +74,7 @@ export default function Index() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-slate-50">
+      <div className="min-h-screen bg-slate-50 overflow-x-hidden">
       <Header />
 
       {/* Mobile Sticky CTA */}
@@ -88,17 +88,16 @@ export default function Index() {
 
       {/* Hero Section with Full-Width Video Background */}
       <section 
-        className="relative h-screen bg-gray-900 text-gray-900 overflow-hidden flex items-center justify-end"
-        style={{ position: 'relative', height: '100vh', overflow: 'hidden' }} // 强制父容器样式，防止 CSS 加载延迟导致的布局塌陷
+        className="relative h-screen bg-gradient-to-br from-gray-800 via-gray-900 to-gray-950 text-gray-900 overflow-hidden flex items-center justify-end"
+        style={{ position: 'relative', height: '100vh', overflow: 'hidden' }}
       >
-        {/* 静态背景 - 始终显示，避免白屏 */}
-        <div className="absolute inset-0 bg-gradient-to-br from-gray-800 to-gray-900" 
+        {/* 静态背景 - 始终显示，避免白屏 - 这就是首屏内容 */}
+        <div className="absolute inset-0 bg-gradient-to-br from-gray-800 via-gray-900 to-gray-950" 
              style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }} />
         
-        {/* 视频背景 - 渐进式显示，支持多个源和容错 */}
+        {/* 视频背景 - 异步加载，不阻止首屏渲染 */}
         <video
           ref={videoRef}
-          // 使用内联样式防止 FOUC (样式未加载导致的闪烁)
           style={{
             position: 'absolute',
             width: '100%',
@@ -106,7 +105,7 @@ export default function Index() {
             objectFit: 'cover',
             top: 0,
             left: 0,
-            zIndex: 0, // 确保层级正确
+            zIndex: 0,
             opacity: videoLoaded ? 1 : 0,
             transition: 'opacity 1s ease-in-out'
           }}
@@ -115,10 +114,10 @@ export default function Index() {
           loop
           muted
           playsInline
-          preload="metadata"
+          preload="none"
+          loading="lazy"
           onError={(e) => {
-            console.error('Failed to load video from main source:', e);
-            // 触发备用方案：保持背景色显示
+            console.error('Failed to load video:', e);
             setVideoLoaded(true);
           }}
           onCanPlay={() => {
@@ -316,16 +315,19 @@ export default function Index() {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center max-w-fit mx-auto">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-stretch max-w-7xl mx-auto">
             {applications.map((app, index) => (
-              <Link key={index} to={app.link} className="group block cursor-pointer">
-                <div className="relative overflow-hidden bg-slate-900 shadow-lg hover:shadow-2xl transition-all duration-300" style={{ width: '405px', height: '270px' }}>
+              <Link key={index} to={app.link} className="group block cursor-pointer w-full">
+                <div className="relative overflow-hidden bg-slate-900 shadow-lg hover:shadow-2xl transition-all duration-300 w-full aspect-[3/2]">
                   {/* Background Image */}
-                  <div className="absolute inset-0">
+                  <div className="absolute inset-0 bg-gray-700 animate-pulse">
                       <img 
                       src={getSceneImage(app.imageFile)} 
                       alt={app.title}
                       className="w-full h-full object-cover opacity-70 group-hover:opacity-90 group-hover:scale-105 transition-all duration-500"
+                      loading="lazy"
+                      decoding="async"
+                      fetchPriority="low"
                     />
                   </div>
 
@@ -441,8 +443,10 @@ export default function Index() {
                     <img 
                       src={step.src}
                       alt={step.alt}
-                      className="w-full h-48 sm:h-56 object-cover"
+                      className="w-full h-48 sm:h-56 object-cover bg-gray-200"
                       loading="lazy"
+                      decoding="async"
+                      fetchPriority="low"
                     />
                     <div className="p-4 text-center">
                       <h3 className="text-lg font-semibold text-slate-900">{step.title}</h3>
