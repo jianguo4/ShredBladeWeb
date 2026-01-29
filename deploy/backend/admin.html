@@ -491,6 +491,17 @@
     let currentPage = 0;
     let inquiries = [];
 
+    // Helper function to create fetch options with credentials
+    function getFetchOptions(options = {}) {
+      return {
+        ...options,
+        credentials: 'include', // Include cookies and auth headers
+        headers: {
+          ...options.headers,
+        }
+      };
+    }
+
     // Load inquiries on page load
     window.onload = () => {
       loadInquiries();
@@ -527,7 +538,7 @@
         let url = `${API_URL}/inquiries?sort=${sort}&order=${order}&limit=${limit}&offset=${offset}`;
         if (status) url += `&status=${status}`;
 
-        const response = await fetch(url);
+        const response = await fetch(url, getFetchOptions());
         const result = await response.json();
 
         if (!result.success) {
@@ -599,7 +610,7 @@
 
     async function viewDetail(id) {
       try {
-        const response = await fetch(`${API_URL}/inquiries/${id}`);
+        const response = await fetch(`${API_URL}/inquiries/${id}`, getFetchOptions());
         const result = await response.json();
 
         if (!result.success) {
@@ -649,11 +660,11 @@
 
     async function updateStatus(id, status) {
       try {
-        const response = await fetch(`${API_URL}/inquiries/${id}`, {
+        const response = await fetch(`${API_URL}/inquiries/${id}`, getFetchOptions({
           method: 'PATCH',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ status })
-        });
+        }));
 
         const result = await response.json();
         if (result.success) {
@@ -672,9 +683,9 @@
       if (!confirm('确定要删除这个询问吗？')) return;
 
       try {
-        const response = await fetch(`${API_URL}/inquiries/${id}`, {
+        const response = await fetch(`${API_URL}/inquiries/${id}`, getFetchOptions({
           method: 'DELETE'
-        });
+        }));
 
         const result = await response.json();
         if (result.success) {

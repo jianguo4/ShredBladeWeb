@@ -13,18 +13,81 @@ var __dirname = path.resolve(__dirname || '.');
 var app = express();
 var PORT = process.env.PORT || 3001;
 
+// Authentication Configuration
+const ADMIN_USERNAME = process.env.ADMIN_USERNAME || 'admin';
+const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'changeme123';
+const ALLOWED_IPS = process.env.ALLOWED_IPS ? process.env.ALLOWED_IPS.split(',') : [];
+
+// IP Whitelist Middleware (Optional)
+function ipWhitelist(req, res, next) {
+  // Skip if no IP whitelist configured
+  if (ALLOWED_IPS.length === 0) {
+    return next();
+  }
+
+  const clientIp = req.headers['x-forwarded-for'] || 
+                   req.headers['x-real-ip'] || 
+                   req.connection.remoteAddress || 
+                   req.socket.remoteAddress;
+  
+  const ip = clientIp.split(',')[0].trim();
+  
+  if (ALLOWED_IPS.includes(ip)) {
+    return next();
+  }
+  
+  console.warn(`Access denied for IP: ${ip}`);
+  return res.status(403).json({
+    success: false,
+    error: 'Access denied'
+  });
+}
+
+// HTTP Basic Authentication Middleware
+function basicAuth(req, res, next) {
+  const authHeader = req.headers.authorization;
+  
+  if (!authHeader || !authHeader.startsWith('Basic ')) {
+    res.setHeader('WWW-Authenticate', 'Basic realm="ShredBlade Admin"');
+    return res.status(401).json({
+      success: false,
+      error: 'Authentication required'
+    });
+  }
+  
+  const base64Credentials = authHeader.split(' ')[1];
+  const credentials = Buffer.from(base64Credentials, 'base64').toString('ascii');
+  const [username, password] = credentials.split(':');
+  
+  if (username === ADMIN_USERNAME && password === ADMIN_PASSWORD) {
+    return next();
+  }
+  
+  res.setHeader('WWW-Authenticate', 'Basic realm="ShredBlade Admin"');
+  return res.status(401).json({
+    success: false,
+    error: 'Invalid credentials'
+  });
+}
+
 // Middleware
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// Serve static files (admin.html)
-app.use(express.static(__dirname));
+// Apply IP whitelist to admin routes (if configured)
+if (ALLOWED_IPS.length > 0) {
+  console.log(`🔒 IP Whitelist enabled: ${ALLOWED_IPS.join(', ')}`);
+}
 
 // Make root serve admin.html for convenience
-app.get('/', (req, res) => {
+app.get('/', ipWhitelist, basicAuth, (req, res) => {
   res.sendFile(path.join(__dirname, 'admin.html'));
 });
+
+// Serve static files (admin.html) with auth protection
+app.use('/admin.html', ipWhitelist, basicAuth, express.static(__dirname));
+app.use('/static', ipWhitelist, basicAuth, express.static(__dirname));
 
 // Initialize database
 var db = new sqlite3.Database(path.join(__dirname, 'inquiries.db'), function(err) {
@@ -54,7 +117,7 @@ var db = new sqlite3.Database(path.join(__dirname, 'inquiries.db'), function(err
 
 // Routes
 
-// Create new inquiry
+// Create new inquiry (Public - No auth required for frontend form submission)
 app.post('/api/inquiries', function(req, res) {
   try {
     const { name, phone, email, message } = req.body;
@@ -118,8 +181,8 @@ app.post('/api/inquiries', function(req, res) {
   }
 });
 
-// Get all inquiries with filters
-app.get('/api/inquiries', (req, res) => {
+// Get all inquiries with filters (Protected - Admin only)
+app.get('/api/inquiries', ipWhitelist, basicAuth, (req, res) => {
   console.log('[DEBUG] GET /api/inquiries called');
   try {
     const { status, sort = 'created_at', order = 'DESC', limit = 50, offset = 0 } = req.query;
@@ -202,8 +265,8 @@ app.get('/api/inquiries', (req, res) => {
   }
 });
 
-// Get single inquiry
-app.get('/api/inquiries/:id', (req, res) => {
+// Get single inquiry (Protected - Admin only)
+app.get('/api/inquiries/:id', ipWhitelist, basicAuth, (req, res) => {
   try {
     const { id } = req.params;
 
@@ -243,8 +306,8 @@ app.get('/api/inquiries/:id', (req, res) => {
   }
 });
 
-// Update inquiry status
-app.patch('/api/inquiries/:id', (req, res) => {
+// Update inquiry status (Protected - Admin only)
+app.patch('/api/inquiries/:id', ipWhitelist, basicAuth, (req, res) => {
   try {
     const { id } = req.params;
     const { status } = req.body;
@@ -293,8 +356,8 @@ app.patch('/api/inquiries/:id', (req, res) => {
   }
 });
 
-// Delete inquiry
-app.delete('/api/inquiries/:id', (req, res) => {
+// Delete inquiry (Protected - Admin only)
+app.delete('/api/inquiries/:id', ipWhitelist, basicAuth, (req, res) => {
   try {
     const { id } = req.params;
 
@@ -341,8 +404,9 @@ app.get('/health', (req, res) => {
 
 // Start server
 function startServer() {
-  const server = app.listen(PORT, '127.0.0.1', () => {
-    console.log(`🚀 Server running on http://localhost:${PORT}`);
+  const HOST = process.env.HOST || '0.0.0.0';
+  const server = app.listen(PORT, HOST, () => {
+    console.log(`🚀 Server running on http://${HOST}:${PORT}`);
     console.log(`📊 Database: ${path.join(__dirname, 'inquiries.db')}`);
     console.log('[DEBUG] Server listening successfully');
   });
