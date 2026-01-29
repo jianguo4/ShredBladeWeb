@@ -48,35 +48,9 @@
 
 ### 部署
 - 平台: Coolify
-- 前端: 静态文件
-- 后端: Docker 容器
-
-### 本地启动方式
-
-**方式 1: 使用 Docker Compose（推荐）**
-```bash
-# 开发环境（热重载）
-docker-compose -f docker-compose.dev.yml up -d
-
-# 访问
-# 前端: http://localhost:80
-# 后端: http://localhost:3001
-# 管理面板: http://localhost:3001/
-```
-
-**方式 2: 使用脚本启动**
-```bash
-.\start-dev.bat  # 启动前后端开发服务器
-```
-
-**方式 3: 手动启动**
-```bash
-# 终端 1 - 后端
-cd app/backend && npm run dev
-
-# 终端 2 - 前端
-cd app/frontend && pnpm run dev
-```
+- 前端: Docker 容器（Nginx）
+- 后端: Docker 容器（Node.js）
+- 本地开发: start-dev.bat 脚本
 
 ---
 
@@ -106,20 +80,18 @@ ShredBladeWeb/
 
 ## 🚀 快速开始
 
-### 使用 Docker Compose（推荐）
+### 本地开发（推荐）
 
 ```bash
-# 本地开发环境
-docker-compose -f docker-compose.dev.yml up -d
-
-# 查看日志
-docker-compose -f docker-compose.dev.yml logs -f
-
-# 停止
-docker-compose -f docker-compose.dev.yml down
+.\start-dev.bat
 ```
 
-### 手动启动 - 前端开发
+启动前后端开发服务器：
+- **前端**: http://localhost:5173
+- **后端**: http://localhost:3001
+- **管理面板**: http://localhost:3001/
+
+### 手动启动前端
 
 ```bash
 cd app/frontend
@@ -129,7 +101,7 @@ pnpm run dev
 
 访问: http://localhost:5173
 
-### 手动启动 - 后端开发
+### 手动启动后端
 
 ```bash
 cd app/backend
@@ -145,27 +117,53 @@ npm run dev
 
 ---
 
-## 📦 部署流程
+## 📦 生产部署（Coolify）
 
-1. **同步代码到部署目录**
-   ```bash
-   .\sync-to-deploy.bat
-   ```
+### 前置条件
+- Git 仓库已推送到远程
+- Coolify 已配置应用和环境变量
 
-2. **提交并推送**
+### 部署步骤
+
+1. **提交代码到 Git**
    ```bash
    git add .
    git commit -m "feat: your changes"
    git push origin main
    ```
 
-3. **Coolify 自动部署**
-   - 监听 Git 仓库变化
-   - 自动构建和部署
+2. **Coolify 自动部署**
+   - Coolify 监听 Git 仓库变化
+   - 自动构建 Docker 镜像
+   - 自动部署容器
 
-4. **配置环境变量**（首次部署）
-   - 在 Coolify 中设置 `ADMIN_USERNAME` 和 `ADMIN_PASSWORD`
-   - 参考 [COOLIFY_DEPLOYMENT_FIX.md](./COOLIFY_DEPLOYMENT_FIX.md)
+3. **使用 docker-compose.yml**
+   ```yaml
+   # 前端: 容器内 80 端口 → 主机 3000 端口
+   # 后端: 容器内 3001 端口 → 主机 3001 端口
+   # Coolify 反向代理:
+   # - www.shredderbladesdirect.com → localhost:3000
+   # - api.shredderbladesdirect.com → localhost:3001
+   ```
+
+4. **配置环境变量**（在 Coolify UI）
+   ```env
+   ADMIN_USERNAME=admin
+   ADMIN_PASSWORD=72@DcCOe5QbxzM-N
+   EMAIL_USER=your-email@gmail.com
+   EMAIL_PASSWORD=your-app-password
+   NOTIFICATION_EMAIL=admin@example.com
+   ```
+
+5. **验证部署**
+   ```bash
+   # 检查前端
+   curl https://www.shredderbladesdirect.com
+   
+   # 检查后端（需要认证）
+   curl -u admin:72@DcCOe5QbxzM-N \
+     https://api.shredderbladesdirect.com/api/inquiries
+   ```
 
 ---
 
