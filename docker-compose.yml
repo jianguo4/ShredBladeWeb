@@ -23,6 +23,8 @@ services:
       - ALLOWED_IPS=${ALLOWED_IPS:-}
     volumes:
       - backend-data:/app/backend
+    ports:
+      - "3001:3001"
     restart: unless-stopped
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:3001/health"]
