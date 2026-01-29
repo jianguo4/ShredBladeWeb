@@ -6,12 +6,12 @@ services:
       context: .
       dockerfile: Dockerfile.frontend
       args:
-        VITE_API_BASE: http://shredblade-backend:3001
-    container_name: shredblade-frontend
+        VITE_API_BASE: http://localhost:3001
+    container_name: shredblade-frontend-dev
     ports:
       - "80:80"
     environment:
-      - NODE_ENV=production
+      - NODE_ENV=development
     restart: unless-stopped
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost/"]
@@ -20,7 +20,7 @@ services:
       retries: 3
       start_period: 40s
     networks:
-      - shredblade
+      - shredblade-dev
     depends_on:
       - backend
 
@@ -28,24 +28,17 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: shredblade-backend
+    container_name: shredblade-backend-dev
     environment:
       - PORT=3001
       - HOST=0.0.0.0
-      - NODE_ENV=production
-      - EMAIL_ENABLED=true
-      - EMAIL_SERVICE=gmail
-      - EMAIL_USER=${EMAIL_USER}
-      - EMAIL_PASSWORD=${EMAIL_PASSWORD}
-      - NOTIFICATION_EMAIL=${NOTIFICATION_EMAIL}
-      - EMAIL_FROM_NAME=ShredBlade Direct
-      # Admin Authentication
+      - NODE_ENV=development
+      - EMAIL_ENABLED=false
       - ADMIN_USERNAME=${ADMIN_USERNAME:-admin}
-      - ADMIN_PASSWORD=${ADMIN_PASSWORD:-changeme123}
-      # IP Whitelist (comma-separated, optional)
+      - ADMIN_PASSWORD=${ADMIN_PASSWORD:-72@DcCOe5QbxzM-N}
       - ALLOWED_IPS=${ALLOWED_IPS:-}
     volumes:
-      - backend-data:/app/backend
+      - ./app/backend:/app/backend
     ports:
       - "3001:3001"
     restart: unless-stopped
@@ -56,10 +49,10 @@ services:
       retries: 3
       start_period: 40s
     networks:
-      - shredblade
+      - shredblade-dev
 
 networks:
-  shredblade:
+  shredblade-dev:
     driver: bridge
 
 volumes:

@@ -51,6 +51,33 @@
 - 前端: 静态文件
 - 后端: Docker 容器
 
+### 本地启动方式
+
+**方式 1: 使用 Docker Compose（推荐）**
+```bash
+# 开发环境（热重载）
+docker-compose -f docker-compose.dev.yml up -d
+
+# 访问
+# 前端: http://localhost:80
+# 后端: http://localhost:3001
+# 管理面板: http://localhost:3001/
+```
+
+**方式 2: 使用脚本启动**
+```bash
+.\start-dev.bat  # 启动前后端开发服务器
+```
+
+**方式 3: 手动启动**
+```bash
+# 终端 1 - 后端
+cd app/backend && npm run dev
+
+# 终端 2 - 前端
+cd app/frontend && pnpm run dev
+```
+
 ---
 
 ## 📁 项目结构
@@ -79,7 +106,20 @@ ShredBladeWeb/
 
 ## 🚀 快速开始
 
-### 前端开发
+### 使用 Docker Compose（推荐）
+
+```bash
+# 本地开发环境
+docker-compose -f docker-compose.dev.yml up -d
+
+# 查看日志
+docker-compose -f docker-compose.dev.yml logs -f
+
+# 停止
+docker-compose -f docker-compose.dev.yml down
+```
+
+### 手动启动 - 前端开发
 
 ```bash
 cd app/frontend
@@ -89,12 +129,12 @@ pnpm run dev
 
 访问: http://localhost:5173
 
-### 后端开发
+### 手动启动 - 后端开发
 
 ```bash
 cd app/backend
 npm install
-node server.js
+npm run dev
 ```
 
 访问: http://localhost:3001
@@ -102,14 +142,6 @@ node server.js
 管理面板: http://localhost:3001/
 - 用户名: `admin`
 - 密码: 见 `.env` 文件
-
-### 本地测试
-
-启动后端后，运行测试脚本：
-```bash
-.\start-backend.bat         # 启动后端
-.\test-api-security.ps1     # 测试 API 安全
-```
 
 ---
 
