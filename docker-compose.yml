@@ -6,8 +6,6 @@ services:
       context: .
       dockerfile: Dockerfile.frontend
     container_name: shredblade-frontend
-    environment:
-      - BACKEND_URL=http://backend:3001
     expose:
       - "80"
     depends_on:
