@@ -9,7 +9,6 @@ ENV NODE_ENV=development
 
 # 复制前端 package.json
 COPY app/frontend/package.json ./
-COPY app/frontend/pnpm-lock.yaml ./
 
 # 安装依赖
 RUN npm install -g pnpm && \
