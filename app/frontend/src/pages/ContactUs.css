@@ -1,0 +1,12 @@
+.contact-hero {
+  background-image: linear-gradient(135deg, rgba(15, 23, 42, 0.85), rgba(51, 65, 85, 0.85)), url('https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=1400&h=600&fit=crop');
+  background-size: cover;
+  background-position: center right;
+  background-attachment: fixed;
+}
+
+@media (max-width: 768px) {
+  .contact-hero {
+    background-attachment: scroll;
+  }
+}

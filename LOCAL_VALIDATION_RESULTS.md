@@ -138,9 +138,8 @@ Invoke-RestMethod -Uri "http://localhost:3001/api/inquiries" -Method Post -Body 
 
 ### 📚 文档
 
-- [API_SECURITY_GUIDE.md](../API_SECURITY_GUIDE.md) - 完整安全配置指南
-- [SERVER_DEPLOYMENT_STEPS.md](../SERVER_DEPLOYMENT_STEPS.md) - 服务器部署步骤
-- [test-api-security.ps1](../test-api-security.ps1) - 自动化测试脚本
+- [API_SECURITY_GUIDE.md](./API_SECURITY_GUIDE.md) - 完整安全配置指南
+- [PROJECT_GUIDELINES.md](./PROJECT_GUIDELINES.md) - 项目规范
 
 ---
 

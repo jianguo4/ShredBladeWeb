@@ -7,6 +7,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Mail, MessageSquare, MapPin, CheckCircle2, ShieldCheck, Clock3 } from 'lucide-react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import './ContactUs.css';
 
 export default function ContactUs() {
   const [formData, setFormData] = useState({
@@ -85,15 +86,7 @@ export default function ContactUs() {
       <Header />
 
       {/* Hero Section - Aligned with Home Page Style */}
-      <section
-        className="relative overflow-hidden bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900"
-        style={{
-          backgroundImage:
-            "linear-gradient(135deg, rgba(15, 23, 42, 0.85), rgba(51, 65, 85, 0.85)), url('https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=1400&h=600&fit=crop')",
-          backgroundSize: 'cover',
-          backgroundPosition: 'center right',
-        }}
-      >
+      <section className="relative overflow-hidden bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 contact-hero">
         <div className="px-4 py-32 sm:px-6 lg:px-8">
           <div className="max-w-4xl">
             <p className="text-sm uppercase tracking-[0.3em] text-amber-400 font-semibold mb-3">

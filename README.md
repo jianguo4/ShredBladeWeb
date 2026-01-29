@@ -144,7 +144,6 @@ node server.js
 | [PROJECT_GUIDELINES.md](./PROJECT_GUIDELINES.md) | **项目规范（必读）** |
 | [API_SECURITY_GUIDE.md](./API_SECURITY_GUIDE.md) | API 安全配置详解 |
 | [COOLIFY_DEPLOYMENT_FIX.md](./COOLIFY_DEPLOYMENT_FIX.md) | Coolify 部署指南 |
-| [COOLIFY_FIX_QUICK.md](./COOLIFY_FIX_QUICK.md) | 快速部署参考 |
 | [LOCAL_VALIDATION_RESULTS.md](./LOCAL_VALIDATION_RESULTS.md) | 本地验证结果 |
 | [SEO_DOMAIN_REDIRECT_GUIDE.md](./SEO_DOMAIN_REDIRECT_GUIDE.md) | SEO 域名配置 |
 
@@ -171,7 +170,7 @@ node server.js
 - 标题: Oswald (粗体、大写)
 - 正文: 系统字体栈
 
-详见 [PROJECT_GUIDELINES.md](./PROJECT_GUIDELINES.md#-ui-设计风格严格遵守)
+详见 [PROJECT_GUIDELINES.md](./PROJECT_GUIDELINES.md)
 
 ---
 
@@ -184,7 +183,7 @@ node server.js
 5. 工业废料刀片 (RDF)
 6. 城市固废刀片 (MSW)
 
-详见 [PROJECT_GUIDELINES.md](./PROJECT_GUIDELINES.md#-产品内容核心业务)
+详见 [PROJECT_GUIDELINES.md](./PROJECT_GUIDELINES.md)
 
 ---
 

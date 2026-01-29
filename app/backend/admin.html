@@ -399,8 +399,8 @@
 
     <div class="controls">
       <div class="control-group">
-        <label>状态:</label>
-        <select id="statusFilter">
+        <label for="statusFilter">状态:</label>
+        <select id="statusFilter" title="按状态筛选">
           <option value="">全部</option>
           <option value="new">新建</option>
           <option value="read">已读</option>
@@ -410,8 +410,8 @@
       </div>
 
       <div class="control-group">
-        <label>排序:</label>
-        <select id="sortBy">
+        <label for="sortBy">排序:</label>
+        <select id="sortBy" title="排序方式">
           <option value="created_at">创建时间</option>
           <option value="name">名字</option>
           <option value="email">邮箱</option>
@@ -419,16 +419,16 @@
       </div>
 
       <div class="control-group">
-        <label>顺序:</label>
-        <select id="sortOrder">
+        <label for="sortOrder">顺序:</label>
+        <select id="sortOrder" title="排序顺序">
           <option value="DESC">最新</option>
           <option value="ASC">最早</option>
         </select>
       </div>
 
       <div class="control-group">
-        <label>每页:</label>
-        <select id="pageLimit">
+        <label for="pageLimit">每页:</label>
+        <select id="pageLimit" title="每页显示数量">
           <option value="20">20</option>
           <option value="50" selected>50</option>
           <option value="100">100</option>
