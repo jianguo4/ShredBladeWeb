@@ -22,32 +22,12 @@ RUN pnpm build
 # 第二阶段：提供服务
 FROM nginx:alpine
 
-# 复制 nginx 配置
-RUN mkdir -p /etc/nginx/conf.d
-COPY <<EOF /etc/nginx/conf.d/default.conf
-server {
-    listen 80;
-    server_name _;
-    
-    root /usr/share/nginx/html;
-    index index.html;
-    
-    # 缓存策略
-    location ~* \.(js|css|png|jpg|jpeg|gif|ico|svg|woff|woff2|ttf|eot)$ {
-        expires 30d;
-        add_header Cache-Control "public, immutable";
-    }
-    
-    # 所有请求都指向 index.html（SPA 路由）
-    location / {
-        try_files \$uri \$uri/ /index.html;
-    }
-}
-EOF
+# 复制 nginx 配置文件（支持域名重定向和 HTTPS）
+COPY nginx.conf /etc/nginx/conf.d/default.conf
 
 # 从构建阶段复制构建输出
 COPY --from=builder /build/dist /usr/share/nginx/html
 
-EXPOSE 80
+EXPOSE 80 443
 
 CMD ["nginx", "-g", "daemon off;"]
