@@ -1,19 +1,22 @@
-#!/bin/sh
+#!/bin/bash
 # 根据环境变量生成 Nginx 配置
 
-# 从环境变量读取后端 URL，默认为相对路径（Coolify 反向代理处理）
-BACKEND_URL=${BACKEND_URL:-http://api.shredderbladesdirect.com}
+# 从环境变量读取后端 URL，默认为完整 URL（Coolify 反向代理处理）
+BACKEND_URL=${BACKEND_URL:-https://api.shredderbladesdirect.com}
 
-# 从 BACKEND_URL 提取主机和端口（如果是完整 URL）
-if [[ "$BACKEND_URL" =~ ^http ]]; then
-  # 是完整 URL，提取主机部分
-  BACKEND_HOST=$(echo "$BACKEND_URL" | sed 's|.*://||' | cut -d: -f1)
-  BACKEND_PORT=$(echo "$BACKEND_URL" | sed 's|.*://||' | cut -d: -f2)
-  [ -z "$BACKEND_PORT" ] && BACKEND_PORT=3001
-  UPSTREAM_URL="http://$BACKEND_HOST:$BACKEND_PORT"
-else
-  # 是相对路径或主机名，直接使用
+# 如果 BACKEND_URL 包含完整 URL（http/https），直接使用
+# 否则解析主机和端口
+if [[ "$BACKEND_URL" =~ ^https?:// ]]; then
+  # 是完整 URL，直接使用（Nginx 支持 HTTPS upstream）
   UPSTREAM_URL="$BACKEND_URL"
+else
+  # 可能是 host:port 或只是 host，尝试处理
+  if [[ "$BACKEND_URL" =~ : ]]; then
+    UPSTREAM_URL="http://$BACKEND_URL"
+  else
+    # 只有主机名，默认端口 3001
+    UPSTREAM_URL="http://$BACKEND_URL:3001"
+  fi
 fi
 
 echo "=== Nginx Configuration ==="
@@ -22,7 +25,7 @@ echo "Upstream: $UPSTREAM_URL"
 echo "============================"
 
 # 生成 Nginx 配置文件
-cat > /etc/nginx/conf.d/default.conf <<EOF
+cat > /etc/nginx/conf.d/default.conf <<'EOF'
 # Nginx 生产环境配置 - 前端应用 + API 代理
 
 # 前端域名
@@ -47,18 +50,18 @@ server {
 
     # API 代理到后端
     location /api/ {
-        proxy_pass $UPSTREAM_URL;
+        proxy_pass UPSTREAM_PLACEHOLDER;
         proxy_http_version 1.1;
         
         # WebSocket 支持
-        proxy_set_header Upgrade \$http_upgrade;
+        proxy_set_header Upgrade $http_upgrade;
         proxy_set_header Connection 'upgrade';
         
         # 转发请求头
-        proxy_set_header Host \$host;
-        proxy_set_header X-Real-IP \$remote_addr;
-        proxy_set_header X-Forwarded-For \$proxy_add_x_forwarded_for;
-        proxy_set_header X-Forwarded-Proto \$scheme;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
         
         # 超时配置
         proxy_connect_timeout 60s;
@@ -71,7 +74,7 @@ server {
 
     # SPA 路由 - 所有非 API 请求都返回 index.html
     location / {
-        try_files \$uri \$uri/ /index.html;
+        try_files $uri $uri/ /index.html;
         add_header Cache-Control "no-cache, no-store, must-revalidate";
     }
 
@@ -85,5 +88,12 @@ server {
 }
 EOF
 
+# 替换占位符为实际的后端 URL
+sed -i "s|UPSTREAM_PLACEHOLDER|$UPSTREAM_URL|g" /etc/nginx/conf.d/default.conf
+
+echo "Nginx config generated successfully"
+cat /etc/nginx/conf.d/default.conf
+
 # 启动 Nginx
 exec nginx -g 'daemon off;'
+
