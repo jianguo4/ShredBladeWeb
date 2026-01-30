@@ -4,7 +4,7 @@
 
 ### 基本设置
 - **Build Pack**: Docker Compose
-- **Docker Compose Location**: `/docker-compose.yml`
+- **Docker Compose Location**: `/docker-compose.yml`（仅后端服务）
 - **Port (Exposes)**: `3001` ⚠️ **必须设置**
 - **Domain**: `https://api.shredderbladesdirect.com`
 

@@ -10,30 +10,18 @@
 ## 原因分析
 
 1. Coolify 部署的是 `deploy/` 目录下的代码，该目录中的文件是旧版本
-2. `docker-compose.yml` 直接绑定了端口 80 和 443，但 Coolify 使用自己的反向代理管理这些端口
-3. 导致 Docker 容器启动失败：`Bind for :::80 failed: port is already allocated`
+2. 旧的 `docker-compose.yml` 同时包含前端与后端，且错误绑定端口
+3. Coolify 反向代理占用 80/443，导致容器启动失败：`Bind for :::80 failed: port is already allocated`
 
 ## 解决方案
 
-### 步骤 0: 修复 docker-compose.yml 端口配置
+### 步骤 0: 拆分前后端部署方式
 
-**问题**: 原始 `docker-compose.yml` 绑定了端口 80 和 443，与 Coolify 反向代理冲突
+**目标**: 前端使用 Dockerfile，后端使用 Docker Compose（仅后端服务）
 
-**解决**: 已更新为以下配置：
-
-```yaml
-frontend:
-  ports:
-    - "3000:80"    # 前端内部使用 80，映射到主机 3000
-  
-backend:
-  ports:
-    - "3001:3001"  # 后端映射到 3001
-```
-
-Coolify 会在其反向代理中配置：
-- `www.shredderbladesdirect.com` → `localhost:3000`
-- `api.shredderbladesdirect.com` → `localhost:3001`
+**解决**:
+- 前端：使用 `Dockerfile.frontend`，由 Coolify Dockerfile 构建
+- 后端：使用 `docker-compose.yml`，仅包含 backend 服务，并通过 `expose: ["3001"]` 暴露给 Coolify 反向代理
 
 ### 步骤 1: 同步最新代码到 deploy 目录
 
@@ -73,10 +61,10 @@ NODE_ENV=production
 ### 步骤 3: 在 Coolify 中配置端口映射
 
 1. 登录 Coolify 控制面板
-2. 选择您的应用 → Settings
-3. **Port Mappings** 部分：
-   - Frontend Service: `3000` (Coolify 代理到 domain:80/443)
-   - Backend Service: `3001` (Coolify 代理到 api.domain)
+2. 分别选择前端与后端应用 → Settings
+3. **Port (Exposes)** 部分：
+  - 前端应用: `80`
+  - 后端应用: `3001`
 
 ### 步骤 4: 提交并推送代码
 

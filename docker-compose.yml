@@ -1,17 +1,6 @@
 version: '3.8'
 
 services:
-  frontend:
-    build:
-      context: .
-      dockerfile: Dockerfile.frontend
-    container_name: shredblade-frontend
-    expose:
-      - "80"
-    depends_on:
-      - backend
-    restart: unless-stopped
-
   backend:
     build:
       context: .

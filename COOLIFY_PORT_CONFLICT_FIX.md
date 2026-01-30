@@ -24,7 +24,7 @@ Coolify 在部署时自动为容器添加了端口映射到主机，但 Coolify 
 
 ### docker-compose.yml 配置
 
-✅ 已确认 docker-compose.yml 中**没有** ports 定义。但 Coolify 可能在部署时修改了文件。
+✅ 仅用于后端服务，且**不使用** `ports`，只使用 `expose: ["3001"]` 供 Coolify 反向代理。
 
 ### Nginx 反向代理配置
 
@@ -40,16 +40,16 @@ api.shredderbladesdirect.com  →  backend:3001 (内部通信)
 ### Coolify 中的应用配置步骤
 
 1. **Backend 应用设置**:
-   - Build: `app/backend/`
-   - Dockerfile: `./Dockerfile`
-   - Port (Exposes): 不配置或留空
+   - Build Pack: Docker Compose
+   - Docker Compose Location: `/docker-compose.yml`
+   - Port (Exposes): `3001`
    - 环境变量: 配置 ADMIN_USERNAME, ADMIN_PASSWORD 等
 
 2. **Frontend 应用设置**:
-   - Build: `app/frontend/`  
-   - Dockerfile: `./Dockerfile.frontend`
-   - Port (Exposes): 不配置或留空
-   - Build Args: VITE_API_BASE=http://shredblade-backend:3001
+   - Build Pack: Dockerfile
+   - Dockerfile Location: `/Dockerfile.frontend`
+   - Port (Exposes): `80`
+   - 环境变量: `BACKEND_URL=https://api.shredderbladesdirect.com`
 
 ### 如果 Coolify 仍然强制添加端口
 

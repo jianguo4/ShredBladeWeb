@@ -137,14 +137,9 @@ npm run dev
    - 自动构建 Docker 镜像
    - 自动部署容器
 
-3. **使用 docker-compose.yml**
-   ```yaml
-   # 前端: 容器内 80 端口 → 主机 3000 端口
-   # 后端: 容器内 3001 端口 → 主机 3001 端口
-   # Coolify 反向代理:
-   # - www.shredderbladesdirect.com → localhost:3000
-   # - api.shredderbladesdirect.com → localhost:3001
-   ```
+3. **前后端拆分部署（推荐）**
+   - 前端：使用 [Dockerfile.frontend](Dockerfile.frontend)（Build Pack: Dockerfile）
+   - 后端：使用 [docker-compose.yml](docker-compose.yml)（Build Pack: Docker Compose，仅包含后端服务）
 
 4. **配置环境变量**（在 Coolify UI）
    ```env
