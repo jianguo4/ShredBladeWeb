@@ -1,3 +1,87 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:42bb48c61a02882cba2ac3c205c87949d67c83aab2ec5561a277b1f2fd12fe46
-size 6153
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" aria-label="Shredder Blade Icon" role="img">
+  <title>Shredder Blade</title>
+  <desc>Optimized blade icon converted from images/icon.html</desc>
+  <style>
+    .blade-front { fill: url(#steelFront); stroke: #1c1c1c; stroke-width: 1.0; }
+    .blade-back  { fill: url(#steelBack); stroke: #2a2a2a; stroke-width: 0.85; opacity: 0.97; }
+    .blade-shadow { fill: #000000; opacity: 0.18; }
+    .hex-hole { fill: transparent; }
+  </style>
+  <defs>
+    <!-- Industrial steel palette: cool gray-blue -->
+    <linearGradient id="steelFront" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#b7c2cc"/>
+      <stop offset="0.5" stop-color="#d7dde2"/>
+      <stop offset="1" stop-color="#9ba7b2"/>
+    </linearGradient>
+    <linearGradient id="steelBack" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#6b7680"/>
+      <stop offset="1" stop-color="#8a95a0"/>
+    </linearGradient>
+    <radialGradient id="specHighlight" cx="0.35" cy="0.35" r="0.75">
+      <stop offset="0" stop-color="#ffffff" stop-opacity="0.28" />
+      <stop offset="0.6" stop-color="#ffffff" stop-opacity="0" />
+      <stop offset="1" stop-color="#000000" stop-opacity="0" />
+    </radialGradient>
+    <!-- Angular tooth for more crisp edges (500-unit space) -->
+    <polygon id="tooth" points="160,0 135,-10 135,10" />
+    <g id="shredder-blade-shape">
+      <path d="M250,50 C265,70 290,60 310,75 C325,90 315,115 335,130 C355,145 380,135 395,160 C410,185 390,210 400,235 C410,260 435,275 430,300 C425,325 400,330 385,350 C370,370 375,395 355,410 C335,425 310,415 285,425 C260,435 245,460 220,455 C195,450 185,425 160,415 C135,405 110,415 90,395 C70,375 80,350 65,330 C50,310 25,315 15,290 C5,265 25,245 20,220 C15,195 -10,180 5,155 C20,130 45,135 65,115 C85,95 80,70 105,60 C130,50 150,70 175,65 C200,60 220,35 250,50 Z"/>
+    </g>
+    <polygon id="hex-center" class="hex-hole" points="250,180 310.6,215 310.6,285 250,320 189.4,285 189.4,215"/>
+  </defs>
+
+  <!-- Scale original 500x500 artwork down to 64x64 -->
+  <g transform="scale(0.128)">
+    <!-- Shadow for depth (slight offset in 500-unit space) -->
+    <path d="M250,50 C265,70 290,60 310,75 C325,90 315,115 335,130 C355,145 380,135 395,160 C410,185 390,210 400,235 C410,260 435,275 430,300 C425,325 400,330 385,350 C370,370 375,395 355,410 C335,425 310,415 285,425 C260,435 245,460 220,455 C195,450 185,425 160,415 C135,405 110,415 90,395 C70,375 80,350 65,330 C50,310 25,315 15,290 C5,265 25,245 20,220 C15,195 -10,180 5,155 C20,130 45,135 65,115 C85,95 80,70 105,60 C130,50 150,70 175,65 C200,60 220,35 250,50 Z M250,180 L189.4,215 L189.4,285 L250,320 L310.6,285 L310.6,215 L250,180 Z" class="blade-shadow" fill-rule="evenodd" transform="translate(12,12)"/>
+
+    <!-- Back layer (cool metal), slightly rotated for parallax -->
+    <g transform="rotate(-10, 250, 250)">
+      <path d="M250,50 C265,70 290,60 310,75 C325,90 315,115 335,130 C355,145 380,135 395,160 C410,185 390,210 400,235 C410,260 435,275 430,300 C425,325 400,330 385,350 C370,370 375,395 355,410 C335,425 310,415 285,425 C260,435 245,460 220,455 C195,450 185,425 160,415 C135,405 110,415 90,395 C70,375 80,350 65,330 C50,310 25,315 15,290 C5,265 25,245 20,220 C15,195 -10,180 5,155 C20,130 45,135 65,115 C85,95 80,70 105,60 C130,50 150,70 175,65 C200,60 220,35 250,50 Z M250,180 L189.4,215 L189.4,285 L250,320 L310.6,285 L310.6,215 L250,180 Z" class="blade-back" fill-rule="evenodd"/>
+      <!-- Angular teeth ring (back) -->
+      <g transform="translate(250,250)" fill="#2c2c2c" stroke="#1a1a1a" stroke-width="2">
+        <use href="#tooth" transform="rotate(0)"/>
+        <use href="#tooth" transform="rotate(22.5)"/>
+        <use href="#tooth" transform="rotate(45)"/>
+        <use href="#tooth" transform="rotate(67.5)"/>
+        <use href="#tooth" transform="rotate(90)"/>
+        <use href="#tooth" transform="rotate(112.5)"/>
+        <use href="#tooth" transform="rotate(135)"/>
+        <use href="#tooth" transform="rotate(157.5)"/>
+        <use href="#tooth" transform="rotate(180)"/>
+        <use href="#tooth" transform="rotate(202.5)"/>
+        <use href="#tooth" transform="rotate(225)"/>
+        <use href="#tooth" transform="rotate(247.5)"/>
+        <use href="#tooth" transform="rotate(270)"/>
+        <use href="#tooth" transform="rotate(292.5)"/>
+        <use href="#tooth" transform="rotate(315)"/>
+        <use href="#tooth" transform="rotate(337.5)"/>
+      </g>
+    </g>
+
+    <!-- Front layer (warm–cool), slight opposite tilt -->
+    <g transform="rotate(6, 250, 250)">
+      <path d="M250,50 C265,70 290,60 310,75 C325,90 315,115 335,130 C355,145 380,135 395,160 C410,185 390,210 400,235 C410,260 435,275 430,300 C425,325 400,330 385,350 C370,370 375,395 355,410 C335,425 310,415 285,425 C260,435 245,460 220,455 C195,450 185,425 160,415 C135,405 110,415 90,395 C70,375 80,350 65,330 C50,310 25,315 15,290 C5,265 25,245 20,220 C15,195 -10,180 5,155 C20,130 45,135 65,115 C85,95 80,70 105,60 C130,50 150,70 175,65 C200,60 220,35 250,50 Z M250,180 L189.4,215 L189.4,285 L250,320 L310.6,285 L310.6,215 L250,180 Z" class="blade-front" fill-rule="evenodd"/>
+      <!-- Angular teeth ring (front, slightly shorter for parallax) -->
+      <g transform="translate(250,250)" fill="#3b3b3b" stroke="#1f1f1f" stroke-width="2">
+        <polygon points="150,0 130,-9 130,9"/>
+        <polygon points="0,150 -9,130 9,130"/>
+        <polygon points="-150,0 -130,-9 -130,9"/>
+        <polygon points="0,-150 -9,-130 9,-130"/>
+        <use href="#tooth" transform="rotate(30)"/>
+        <use href="#tooth" transform="rotate(60)"/>
+        <use href="#tooth" transform="rotate(120)"/>
+        <use href="#tooth" transform="rotate(150)"/>
+        <use href="#tooth" transform="rotate(210)"/>
+        <use href="#tooth" transform="rotate(240)"/>
+        <use href="#tooth" transform="rotate(300)"/>
+        <use href="#tooth" transform="rotate(330)"/>
+      </g>
+    </g>
+
+    <!-- Specular highlight on the front layer -->
+    <circle cx="220" cy="210" r="95" fill="url(#specHighlight)"/>
+  </g>
+</svg>

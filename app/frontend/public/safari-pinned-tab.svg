@@ -1,3 +1,12 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:6ae5aba5d2caadf83c7e87fafdd94a7a517d0199e313852ff9988664735a50bf
-size 893
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <defs>
+    <style>
+      .shape { fill: #000000; }
+    </style>
+  </defs>
+  <!-- Monochrome version suitable for Safari pinned tab -->
+  <g transform="scale(0.128)">
+    <path class="shape" d="M250,50 C265,70 290,60 310,75 C325,90 315,115 335,130 C355,145 380,135 395,160 C410,185 390,210 400,235 C410,260 435,275 430,300 C425,325 400,330 385,350 C370,370 375,395 355,410 C335,425 310,415 285,425 C260,435 245,460 220,455 C195,450 185,425 160,415 C135,405 110,415 90,395 C70,375 80,350 65,330 C50,310 25,315 15,290 C5,265 25,245 20,220 C15,195 -10,180 5,155 C20,130 45,135 65,115 C85,95 80,70 105,60 C130,50 150,70 175,65 C200,60 220,35 250,50 Z M250,180 L189.4,215 L189.4,285 L250,320 L310.6,285 L310.6,215 L250,180 Z" fill-rule="evenodd"/>
+  </g>
+</svg>
