@@ -491,8 +491,6 @@
     const API_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
       ? 'http://localhost:3001/api'
       : '/api';  // Use relative path in production (Coolify will handle routing)
-    
-    console.log('API_URL configured as:', API_URL);
     let currentPage = 0;
     let inquiries = [];
 
