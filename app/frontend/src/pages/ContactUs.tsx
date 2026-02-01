@@ -24,7 +24,11 @@ export default function ContactUs() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const apiBase = import.meta.env.VITE_API_BASE || window.location.origin;
+    // Use api subdomain in production, localhost in development
+    const apiBase = import.meta.env.VITE_API_BASE || 
+      (window.location.hostname === 'localhost' 
+        ? 'http://localhost:3001' 
+        : 'https://api.shredderbladesdirect.com');
     try {
       const response = await fetch(`${apiBase}/api/inquiries`, {
         method: 'POST',
