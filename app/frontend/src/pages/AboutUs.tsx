@@ -5,8 +5,8 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import factoryImage from '../images/about-us/factory.jpg';
 import qualityInspectionImage from '../images/about-us/Quality-Inspection.jpg';
-import cncMachiningImage from '../images/MANUFACTURING PROCESS/CNC Machining.jpg';
-import heatTreatmentImage from '../images/MANUFACTURING PROCESS/Heat Treatment.jpg';
+import cncMachiningImage from '../images/MANUFACTURING PROCESS/03-CNC-Machining.jpg';
+import heatTreatmentImage from '../images/MANUFACTURING PROCESS/Grinding.jpg';
 import rawMaterialImage from '../images/MANUFACTURING PROCESS/Raw Material Selection.jpg';
 
 export default function AboutUs() {
