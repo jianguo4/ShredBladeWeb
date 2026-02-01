@@ -1,0 +1,1 @@
+const e=""+new URL("Sharp steel blade angle-BvZ-FuvC.jpg",import.meta.url).href,a=""+new URL("Clean plastic flakes-B_JVXAYQ.jpg",import.meta.url).href,r=""+new URL("Shredding plastic lump-CTtP51x9.jpg",import.meta.url).href;export{r as a,a as c,e as s};

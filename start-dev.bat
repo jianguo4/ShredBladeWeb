@@ -48,7 +48,7 @@ cd /d "%~dp0app\frontend"
 REM 检查 node_modules
 if not exist "node_modules" (
   echo 📦 安装前端依赖...
-  call pnpm install
+  call npm install
   if errorlevel 1 (
     echo ❌ 安装失败
     pause
@@ -57,7 +57,7 @@ if not exist "node_modules" (
 )
 
 REM 启动前端（新窗口）
-start cmd /k "cd /d %~dp0app\frontend && pnpm dev"
+start cmd /k "cd /d %~dp0app\frontend && npm run dev"
 
 REM 等待前端启动
 timeout /t 3 /nobreak
@@ -67,7 +67,7 @@ echo ========================================
 echo  ✅ 启动完成！
 echo ========================================
 echo.
-echo 📱 前端: http://localhost:5173
+echo 📱 前端: http://localhost:5173 (或 5174/5175，如果端口被占用)
 echo 🔌 后端 API: http://localhost:3001
 echo 📊 管理面板: http://localhost:3001/admin.html
 echo.
@@ -75,5 +75,6 @@ echo 💡 提示:
 echo   - 关闭任一窗口会停止对应的服务
 echo   - 前端会自动打开浏览器
 echo   - 数据库文件: app\backend\inquiries.db
+echo   - 查看前端窗口确认实际端口
 echo.
 pause
