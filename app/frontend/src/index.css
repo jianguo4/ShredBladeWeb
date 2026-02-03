@@ -201,18 +201,20 @@
 /* ========== 图片防护 - 禁止下载 ========== */
 /* 禁止选择图片 */
 img {
-  user-select: none;
+  pointer-events: none;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
+  user-select: none;
   -webkit-user-drag: none;
-  pointer-events: none;
 }
 
 /* 禁止右键菜单和拖拽 */
 img[src*="/images/"] {
   -webkit-touch-callout: none;
   -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
   user-select: none;
   -webkit-user-drag: none;
 }
@@ -222,6 +224,7 @@ img[src*="/images/"] {
   .line-clamp-4 {
     display: -webkit-box;
     -webkit-line-clamp: 4;
+    line-clamp: 4;
     -webkit-box-orient: vertical;
     overflow: hidden;
   }

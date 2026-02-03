@@ -51,7 +51,8 @@ export function initImageProtection() {
 export function protectImage(imgElement: HTMLImageElement) {
   imgElement.style.userSelect = 'none';
   imgElement.style.webkitUserSelect = 'none';
-  imgElement.style.msUserSelect = 'none';
+  // 注：msUserSelect 在 TypeScript 中不支持，使用 setAttribute 代替
+  imgElement.setAttribute('style', (imgElement.getAttribute('style') || '') + '; -ms-user-select: none;');
   imgElement.style.pointerEvents = 'none';
   imgElement.setAttribute('draggable', 'false');
   imgElement.setAttribute('ondragstart', 'return false');
