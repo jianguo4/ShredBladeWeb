@@ -5,14 +5,10 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 
 // Hero image
-import heroImage from '@/images/Application Scenarios/Electronic Waste.jpg';
 import heroImageWebp from '@/images/Application Scenarios/Electronic Waste.webp';
 
-import sharpSteelBladeAngle from '@/images/detail/Sharp steel blade angle.jpg';
 import sharpSteelBladeAngleWebp from '@/images/detail/Sharp steel blade angle.webp';
-import cleanPlasticFlakes from '@/images/detail/Clean plastic flakes.jpg';
 import cleanPlasticFlakesWebp from '@/images/detail/Clean plastic flakes.webp';
-import shreddingPlasticLump from '@/images/detail/Shredding plastic lump.jpg';
 import shreddingPlasticLumpWebp from '@/images/detail/Shredding plastic lump.webp';
 
 const bladeImageModules = import.meta.glob<{ default: string }>(
@@ -31,17 +27,17 @@ const TECHNICAL_HIGHLIGHTS = [
 const PROBLEM_SOLUTIONS = [
   {
     title: 'Handle Mixed Materials',
-    image: cleanPlasticFlakes,
+    image: cleanPlasticFlakesWebp,
     description: 'Geometry and steel selection deliver clean cuts in plastics while resisting impact from metal components.'
   },
   {
     title: 'Minimize Chipping',
-    image: shreddingPlasticLump,
+    image: shreddingPlasticLumpWebp,
     description: 'Vacuum hardening + temper cycles balance edge retention and core toughness to reduce brittle fracture.'
   },
   {
     title: 'Control Dust & Size',
-    image: sharpSteelBladeAngle,
+    image: sharpSteelBladeAngleWebp,
     description: 'Tight cutting gap supports uniform particle size with minimized fines.'
   },
 ];
@@ -84,7 +80,7 @@ export default function EWasteDataDestruction() {
             <picture>
               <source srcSet={heroImageWebp} type="image/webp" />
               <img
-                src={heroImage}
+                src={heroImageWebp}
                 alt="E-waste and electronic waste shredder blades for data destruction"
                 className="rounded-lg shadow-lg object-cover"
                 style={{ width: '656px', height: '457px' }}
@@ -118,13 +114,13 @@ export default function EWasteDataDestruction() {
               <div key={solution.title} className="flex flex-col h-full">
                 <div className="mb-5 aspect-[5/4] sm:aspect-[4/3] max-h-[220px] sm:max-h-[240px] overflow-hidden">
                   <picture>
-                    {solution.image === cleanPlasticFlakes && (
+                    {solution.image === cleanPlasticFlakesWebp && (
                       <source srcSet={cleanPlasticFlakesWebp} type="image/webp" />
                     )}
-                    {solution.image === shreddingPlasticLump && (
+                    {solution.image === shreddingPlasticLumpWebp && (
                       <source srcSet={shreddingPlasticLumpWebp} type="image/webp" />
                     )}
-                    {solution.image === sharpSteelBladeAngle && (
+                    {solution.image === sharpSteelBladeAngleWebp && (
                       <source srcSet={sharpSteelBladeAngleWebp} type="image/webp" />
                     )}
                     <img src={solution.image} alt={`E-waste blade solution - ${solution.title}`} className="w-full h-full rounded-none object-cover" loading="lazy" decoding="async" />

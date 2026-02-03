@@ -3,15 +3,11 @@ import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-import mswImage from '@/images/shrederblade-msw.jpg';
 import mswImageWebp from '@/images/shrederblade-msw.webp';
 
 // Import detail images (reused template visuals)
-import sharpSteelBladeAngle from '@/images/detail/Sharp steel blade angle.jpg';
 import sharpSteelBladeAngleWebp from '@/images/detail/Sharp steel blade angle.webp';
-import cleanPlasticFlakes from '@/images/detail/Clean plastic flakes.jpg';
 import cleanPlasticFlakesWebp from '@/images/detail/Clean plastic flakes.webp';
-import shreddingPlasticLump from '@/images/detail/Shredding plastic lump.jpg';
 import shreddingPlasticLumpWebp from '@/images/detail/Shredding plastic lump.webp';
 
 // Image modules for gallery
@@ -31,17 +27,17 @@ const TECHNICAL_HIGHLIGHTS = [
 const PROBLEM_SOLUTIONS = [
   {
     title: 'Prevent Impact Fracture',
-    image: shreddingPlasticLump,
+    image: shreddingPlasticLumpWebp,
     description: 'Toughness-oriented steel and multi-temper heat treatment absorb shock from metal, glass, and dense items to minimize chipping and breakage.'
   },
   {
     title: 'Increase Throughput',
-    image: cleanPlasticFlakes,
+    image: cleanPlasticFlakesWebp,
     description: 'Optimized blade profile maintains material flow and consistent bite, reducing clogging with mixed organic/inorganic waste.'
   },
   {
     title: 'Reduce Wrap & Clogs',
-    image: sharpSteelBladeAngle,
+    image: sharpSteelBladeAngleWebp,
     description: 'Edge geometry resists film/plastic wrap around rotors, stabilizing cutting and lowering friction heat.'
   },
 ];
@@ -83,7 +79,7 @@ export default function MunicipalSolidWasteRecycling() {
             <picture>
               <source srcSet={mswImageWebp} type="image/webp" />
               <img
-                src={mswImage}
+                src={mswImageWebp}
                 alt="MSW shredder blades handling mixed municipal waste"
                 className="rounded-lg shadow-lg object-cover"
                 style={{ width: '656px', height: '457px' }}

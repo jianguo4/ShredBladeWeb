@@ -3,15 +3,10 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-import factoryImage from '../images/about-us/factory.jpg';
 import factoryImageWebp from '../images/about-us/factory.webp';
-import qualityInspectionImage from '../images/about-us/Quality-Inspection.jpg';
 import qualityInspectionImageWebp from '../images/about-us/Quality-Inspection.webp';
-import cncMachiningImage from '../images/MANUFACTURING PROCESS/CNC Machining.webp';
 import cncMachiningImageWebp from '../images/MANUFACTURING PROCESS/CNC Machining.webp';
-import heatTreatmentImage from '../images/MANUFACTURING PROCESS/Heat Treatment.webp';
 import heatTreatmentImageWebp from '../images/MANUFACTURING PROCESS/Heat Treatment.webp';
-import rawMaterialImage from '../images/MANUFACTURING PROCESS/Raw Material Selection.webp';
 import rawMaterialImageWebp from '../images/MANUFACTURING PROCESS/Raw Material Selection.webp';
 
 export default function AboutUs() {
@@ -45,7 +40,7 @@ export default function AboutUs() {
             <picture>
               <source srcSet={factoryImageWebp} type="image/webp" />
               <img
-                src={factoryImage}
+                src={factoryImageWebp}
                 alt="Liqun Machinery factory floor - Heavy duty shredder blade CNC machining center with precision grinding equipment"
                 className="rounded-lg shadow-lg w-full h-auto object-cover"
                 loading="lazy"
@@ -75,7 +70,7 @@ export default function AboutUs() {
               <div className="absolute inset-0">
                 <picture>
                   <source srcSet={rawMaterialImageWebp} type="image/webp" />
-                  <img src={rawMaterialImage} alt="Raw Material" className="w-full h-full object-cover opacity-50 group-hover:opacity-100 transition-opacity duration-300" loading="lazy" decoding="async" />
+                  <img src={rawMaterialImageWebp} alt="Raw Material" className="w-full h-full object-cover opacity-50 group-hover:opacity-100 transition-opacity duration-300" loading="lazy" decoding="async" />
                 </picture>
                 <div className="absolute inset-0 bg-gradient-to-b from-[#1A365D]/70 to-[#1A365D]/50 group-hover:from-[#1A365D]/20 group-hover:to-[#1A365D]/10 transition-all duration-300"></div>
               </div>
@@ -105,7 +100,7 @@ export default function AboutUs() {
               <div className="absolute inset-0">
                 <picture>
                   <source srcSet={heatTreatmentImageWebp} type="image/webp" />
-                  <img src={heatTreatmentImage} alt="Heat Treatment" className="w-full h-full object-cover opacity-50 group-hover:opacity-100 transition-opacity duration-300" loading="lazy" decoding="async" />
+                  <img src={heatTreatmentImageWebp} alt="Heat Treatment" className="w-full h-full object-cover opacity-50 group-hover:opacity-100 transition-opacity duration-300" loading="lazy" decoding="async" />
                 </picture>
                 <div className="absolute inset-0 bg-gradient-to-b from-[#1A365D]/70 to-[#1A365D]/50 group-hover:from-[#1A365D]/20 group-hover:to-[#1A365D]/10 transition-all duration-300"></div>
               </div>
@@ -135,7 +130,7 @@ export default function AboutUs() {
               <div className="absolute inset-0">
                 <picture>
                   <source srcSet={cncMachiningImageWebp} type="image/webp" />
-                  <img src={cncMachiningImage} alt="CNC Machining" className="w-full h-full object-cover opacity-50 group-hover:opacity-100 transition-opacity duration-300" loading="lazy" decoding="async" />
+                  <img src={cncMachiningImageWebp} alt="CNC Machining" className="w-full h-full object-cover opacity-50 group-hover:opacity-100 transition-opacity duration-300" loading="lazy" decoding="async" />
                 </picture>
                 <div className="absolute inset-0 bg-gradient-to-b from-[#1A365D]/70 to-[#1A365D]/50 group-hover:from-[#1A365D]/20 group-hover:to-[#1A365D]/10 transition-all duration-300"></div>
               </div>
@@ -170,7 +165,7 @@ export default function AboutUs() {
               <picture>
                 <source srcSet={qualityInspectionImageWebp} type="image/webp" />
                 <img
-                  src={qualityInspectionImage}
+                  src={qualityInspectionImageWebp}
                   alt="Quality Control Inspection - Hardness testing equipment for SKD11 industrial shredder knives with metallographic microscope"
                   className="rounded-lg shadow-lg w-full"
                   loading="lazy"

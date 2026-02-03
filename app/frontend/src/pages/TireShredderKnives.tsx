@@ -5,15 +5,11 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 
 // Hero image
-import heroImage from '@/images/Application Scenarios/Tires & Rubbe.jpg';
 import heroImageWebp from '@/images/Application Scenarios/Tires & Rubbe.webp';
 
 // Import detail images (reused template visuals)
-import sharpSteelBladeAngle from '@/images/detail/Sharp steel blade angle.jpg';
 import sharpSteelBladeAngleWebp from '@/images/detail/Sharp steel blade angle.webp';
-import cleanPlasticFlakes from '@/images/detail/Clean plastic flakes.jpg';
 import cleanPlasticFlakesWebp from '@/images/detail/Clean plastic flakes.webp';
-import shreddingPlasticLump from '@/images/detail/Shredding plastic lump.jpg';
 import shreddingPlasticLumpWebp from '@/images/detail/Shredding plastic lump.webp';
 
 // Image modules for gallery
@@ -33,17 +29,17 @@ const TECHNICAL_HIGHLIGHTS = [
 const PROBLEM_SOLUTIONS = [
   {
     title: 'Resist Rubber Abrasion',
-    image: sharpSteelBladeAngle,
+    image: sharpSteelBladeAngleWebp,
     description: 'Specialized edge geometry and material selection provide extreme wear resistance for continuous rubber cutting without rapid edge degradation.'
   },
   {
     title: 'Cut Through Steel Wire',
-    image: shreddingPlasticLump,
+    image: shreddingPlasticLumpWebp,
     description: 'High toughness H13 steel with cryogenic treatment maintains cutting capability through embedded steel belts and wire reinforcement.'
   },
   {
     title: 'Manage Heat Buildup',
-    image: cleanPlasticFlakes,
+    image: cleanPlasticFlakesWebp,
     description: 'Heat-resistant alloy and optimized cutting angle reduce friction-induced temperature rise, preventing premature softening and wear.'
   },
 ];
@@ -86,7 +82,7 @@ export default function TireShredderKnives() {
             <picture>
               <source srcSet={heroImageWebp} type="image/webp" />
               <img
-                src={heroImage}
+                src={heroImageWebp}
                 alt="Tire shredder blades - Heavy-duty knives for tire and rubber recycling"
                 className="rounded-lg shadow-lg object-cover"
                 style={{ width: '656px', height: '457px' }}
@@ -124,13 +120,13 @@ export default function TireShredderKnives() {
               <div key={solution.title} className="flex flex-col h-full">
                 <div className="mb-5 aspect-[5/4] sm:aspect-[4/3] max-h-[220px] sm:max-h-[240px] overflow-hidden">
                   <picture>
-                    {solution.image === sharpSteelBladeAngle && (
+                    {solution.image === sharpSteelBladeAngleWebp && (
                       <source srcSet={sharpSteelBladeAngleWebp} type="image/webp" />
                     )}
-                    {solution.image === shreddingPlasticLump && (
+                    {solution.image === shreddingPlasticLumpWebp && (
                       <source srcSet={shreddingPlasticLumpWebp} type="image/webp" />
                     )}
-                    {solution.image === cleanPlasticFlakes && (
+                    {solution.image === cleanPlasticFlakesWebp && (
                       <source srcSet={cleanPlasticFlakesWebp} type="image/webp" />
                     )}
                     <img src={solution.image} alt={`Tire blade solution - ${solution.title}`} className="w-full h-full rounded-none object-cover" loading="lazy" decoding="async" />

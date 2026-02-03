@@ -5,15 +5,11 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 
 // Hero image
-import metalHero from '@/images/Application Scenarios/Metal Scrap.jpg';
 import metalHeroWebp from '@/images/Application Scenarios/Metal Scrap.webp';
 
 // Import detail images (Note: Ensure actual image files are updated to show METAL scrap)
-import heavyDutyShearEdge from '@/images/detail/Sharp steel blade angle.jpg';
 import heavyDutyShearEdgeWebp from '@/images/detail/Sharp steel blade angle.webp';
-import cleanCutSteelScrap from '@/images/detail/Clean plastic flakes.jpg';
 import cleanCutSteelScrapWebp from '@/images/detail/Clean plastic flakes.webp';
-import impactResistantAlloy from '@/images/detail/Shredding plastic lump.jpg';
 import impactResistantAlloyWebp from '@/images/detail/Shredding plastic lump.webp';
 
 // Image modules for gallery
@@ -33,17 +29,17 @@ const TECHNICAL_HIGHLIGHTS = [
 const PROBLEM_SOLUTIONS = [
   {
     title: 'Stop Catastrophic Blade Failure',
-    image: impactResistantAlloy,
+    image: impactResistantAlloyWebp,
     description: 'Scrap metal often hides "unshreddables" (hardened shafts). Our modified H13 alloy absorbs extreme shock loads, preventing dangerous blade shattering and protecting your shear ram.'
   },
   {
     title: 'Eliminate Edge Rolling',
-    image: heavyDutyShearEdge,
+    image: heavyDutyShearEdgeWebp,
     description: 'Soft blades roll over; too hard blades crack. We hit the metallurgical "Sweet Spot" (56-58 HRC) to ensure clean shearing of rebar and structural steel without frequent gap adjustments.'
   },
   {
     title: 'Precision Shim Fitting',
-    image: cleanCutSteelScrap,
+    image: cleanCutSteelScrapWebp,
     description: 'Loose blades destroy gibs. Our blades are ground to ±0.01mm tolerance, ensuring a perfect fit with your shims for tight, powerful shearing action.'
   },
 ];
@@ -85,7 +81,7 @@ export default function MetalScrapShears() {
             <picture>
               <source srcSet={metalHeroWebp} type="image/webp" />
               <img
-                src={metalHero}
+                src={metalHeroWebp}
                 alt="Metal scrap recycling shredder blades - Heavy-duty metal processing"
                 className="rounded-lg shadow-lg object-cover"
                 style={{ width: '656px', height: '457px' }}

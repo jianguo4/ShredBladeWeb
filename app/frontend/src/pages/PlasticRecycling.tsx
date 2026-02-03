@@ -3,15 +3,11 @@ import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-import heroImage from '@/images/Application Scenarios/Plastic Waste.jpg';
 import heroImageWebp from '@/images/Application Scenarios/Plastic Waste.webp';
 
 // Import detail images
-import sharpSteelBladeAngle from '@/images/detail/Sharp steel blade angle.jpg';
 import sharpSteelBladeAngleWebp from '@/images/detail/Sharp steel blade angle.webp';
-import cleanPlasticFlakes from '@/images/detail/Clean plastic flakes.jpg';
 import cleanPlasticFlakesWebp from '@/images/detail/Clean plastic flakes.webp';
-import shreddingPlasticLump from '@/images/detail/Shredding plastic lump.jpg';
 import shreddingPlasticLumpWebp from '@/images/detail/Shredding plastic lump.webp';
 
 // Image modules
@@ -47,17 +43,17 @@ const TECHNICAL_HIGHLIGHTS = [
 const PROBLEM_SOLUTIONS = [
   {
     title: 'Stop Film Wrapping & Melting',
-    image: sharpSteelBladeAngle,
+    image: sharpSteelBladeAngleWebp,
     description: 'Prevent rotor blocking and frictional melting. Our aggressive shear-angle geometry creates a continuous slicing action, ideal for LDPE films and woven bags without clogging the rotor.'
   },
   {
     title: 'Maximize Saleable Flake Yield',
-    image: cleanPlasticFlakes,
+    image: cleanPlasticFlakesWebp,
     description: 'Reduce dust and fines by 15%. Precision-ground edges minimize pulverization, ensuring uniform particle size for higher market value in PET washing lines.'
   },
   {
     title: 'Shock-Proof for Contaminants',
-    image: shreddingPlasticLump,
+    image: shreddingPlasticLumpWebp,
     description: 'Designed for dirty feedstock. Our triple-tempered DC53 alloy creates a resilient microstructure that resists chipping when encountering accidental metal or stones in mixed waste.'
   },
 ];
@@ -103,7 +99,7 @@ export default function PlasticRecycling() {
             <picture>
               <source srcSet={heroImageWebp} type="image/webp" />
               <img
-                src={heroImage}
+                src={heroImageWebp}
                 alt="Plastic recycling shredder blades cutting mixed plastic waste materials"
                 className="rounded-lg shadow-lg object-cover"
                 style={{ width: '656px', height: '457px' }}
@@ -153,13 +149,13 @@ export default function PlasticRecycling() {
               <div key={solution.title} className="flex flex-col h-full">
                 <div className="mb-5 aspect-[5/4] sm:aspect-[4/3] max-h-[220px] sm:max-h-[240px] overflow-hidden">
                   <picture>
-                    {solution.image === sharpSteelBladeAngle && (
+                    {solution.image === sharpSteelBladeAngleWebp && (
                       <source srcSet={sharpSteelBladeAngleWebp} type="image/webp" />
                     )}
-                    {solution.image === cleanPlasticFlakes && (
+                    {solution.image === cleanPlasticFlakesWebp && (
                       <source srcSet={cleanPlasticFlakesWebp} type="image/webp" />
                     )}
-                    {solution.image === shreddingPlasticLump && (
+                    {solution.image === shreddingPlasticLumpWebp && (
                       <source srcSet={shreddingPlasticLumpWebp} type="image/webp" />
                     )}
                     <img

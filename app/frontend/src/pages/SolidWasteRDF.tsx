@@ -6,15 +6,11 @@ import Footer from '@/components/Footer';
 import heroImage from '@/images/Application Scenarios/Solid Waste.png';
 import heroImageWebp from '@/images/Application Scenarios/Solid Waste.webp';
 
-import sharpSteelBladeAngle from '@/images/detail/Sharp steel blade angle.jpg';
 import sharpSteelBladeAngleWebp from '@/images/detail/Sharp steel blade angle.webp';
-import cleanPlasticFlakes from '@/images/detail/Clean plastic flakes.jpg';
 import cleanPlasticFlakesWebp from '@/images/detail/Clean plastic flakes.webp';
-import shreddingPlasticLump from '@/images/detail/Shredding plastic lump.jpg';
 import shreddingPlasticLumpWebp from '@/images/detail/Shredding plastic lump.webp';
 
 // Import scene images
-import industrialWasteImage from '@/images/scene/industrial waste.jpg';
 import industrialWasteImageWebp from '@/images/scene/industrial waste.webp';
 
 const bladeImageModules = import.meta.glob<{ default: string }>(
@@ -33,17 +29,17 @@ const TECHNICAL_HIGHLIGHTS = [
 const PROBLEM_SOLUTIONS = [
   {
     title: 'Impact Toughness',
-    image: shreddingPlasticLump,
+    image: shreddingPlasticLumpWebp,
     description: 'Multi-temper treatment and alloy selection resist shock loads from dense items and contaminants.'
   },
   {
     title: 'Consistent Bite',
-    image: cleanPlasticFlakes,
+    image: cleanPlasticFlakesWebp,
     description: 'Profile geometry maintains engagement with uneven, bulky materials to prevent stalls.'
   },
   {
     title: 'Anti-Wrap Edges',
-    image: sharpSteelBladeAngle,
+    image: sharpSteelBladeAngleWebp,
     description: 'Edge design mitigates film/plastic wrapping in mixed industrial streams.'
   },
 ];
@@ -86,7 +82,7 @@ export default function SolidWasteRDF() {
             <picture>
               <source srcSet={heroImageWebp} type="image/webp" />
               <img
-                src={industrialWasteImage}
+                src={industrialWasteImageWebp}
                 alt="Industrial waste and RDF shredder blades for solid waste processing"
                 className="rounded-lg shadow-lg object-cover"
                 style={{ width: '656px', height: '457px' }}
@@ -120,13 +116,13 @@ export default function SolidWasteRDF() {
               <div key={solution.title} className="flex flex-col h-full">
                 <div className="mb-5 aspect-[5/4] sm:aspect-[4/3] max-h-[220px] sm:max-h-[240px] overflow-hidden">
                   <picture>
-                    {solution.image === shreddingPlasticLump && (
+                    {solution.image === shreddingPlasticLumpWebp && (
                       <source srcSet={shreddingPlasticLumpWebp} type="image/webp" />
                     )}
-                    {solution.image === cleanPlasticFlakes && (
+                    {solution.image === cleanPlasticFlakesWebp && (
                       <source srcSet={cleanPlasticFlakesWebp} type="image/webp" />
                     )}
-                    {solution.image === sharpSteelBladeAngle && (
+                    {solution.image === sharpSteelBladeAngleWebp && (
                       <source srcSet={sharpSteelBladeAngleWebp} type="image/webp" />
                     )}
                     <img src={solution.image} alt={`RDF blade solution - ${solution.title}`} className="w-full h-full rounded-none object-cover" loading="lazy" decoding="async" />
