@@ -4,9 +4,9 @@ import { ArrowRight } from 'lucide-react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 
-// Image modules - 使用shred-blades文件夹作为临时图片源
+// Image modules - 使用four-shredder-blades文件夹作为图片源
 const bladeImageModules = import.meta.glob<{ default: string }>(
-  '../images/shred-blades/*.{jpg,jpeg,png,webp}',
+  '../images/four-shredder-blades/*.webp',
   { eager: true }
 );
 
@@ -22,14 +22,14 @@ export default function FourShaftShredderBlades() {
   const bladeImages = useMemo(() => {
     // 为四轴切碎机刀片定义专业的SEO优化alt文本
     const altTextMap: Record<string, string> = {
-      'single-shaft-blade-01.jpg': 'Four shaft shredder blade for ultra-fine plastic film shredding',
-      'single-shaft-blade-02.jpg': 'Replacement four shaft shredder blades set for Lindner and Weima machines',
-      'single-shaft-blade-03.jpg': 'Bulk inventory of precision blades for MSW and TDF processing',
-      'single-shaft-blade-04.jpg': 'Close-up of precision ground cutting edge on four shaft shredder blade',
-      'single-shaft-blade-05.jpg': 'Heat treated surface detail of four shaft shredder blade',
-      'single-shaft-blade-06.jpg': 'Industrial grade four shaft shredder blades for fine particle size control',
-      'single-shaft-blade-07.jpg': 'Custom manufactured shredder knives for mixed plastic and paper waste',
-      'single-shaft-blade-recycling.jpg': 'Professional four shaft shredder blades for precise recycling operations'
+      'four-shaft-shredder-blade-01.webp': 'Four shaft shredder blade for ultra-fine plastic film shredding',
+      'four-shaft-shredder-blade-02.webp': 'Replacement four shaft shredder blades set for Lindner and Weima machines',
+      'four-shaft-shredder-blade-03.webp': 'Bulk inventory of precision blades for MSW and TDF processing',
+      'four-shaft-shredder-blade-04.webp': 'Close-up of precision ground cutting edge on four shaft shredder blade',
+      'four-shaft-shredder-blade-05.webp': 'Heat treated surface detail of four shaft shredder blade',
+      'four-shaft-shredder-blade-06.webp': 'Industrial grade four shaft shredder blades for fine particle size control',
+      'four-shaft-shredder-blade-07.webp': 'Custom manufactured shredder knives for mixed plastic and paper waste',
+      'four-shaft-shredder-blade-08.webp': 'Professional four shaft shredder blades for precise recycling operations'
     };
 
     return Object.entries(bladeImageModules)

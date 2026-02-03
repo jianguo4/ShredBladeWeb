@@ -4,19 +4,23 @@ import { ArrowRight } from 'lucide-react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 
+// Hero image
+import metalHero from '@/images/Application Scenarios/Metal Scrap.jpg';
+import metalHeroWebp from '@/images/Application Scenarios/Metal Scrap.webp';
+
 // Import detail images (Note: Ensure actual image files are updated to show METAL scrap)
-import heavyDutyShearEdge from '../images/detail/Sharp steel blade angle.jpg';
-import cleanCutSteelScrap from '../images/detail/Clean plastic flakes.jpg';
-import impactResistantAlloy from '../images/detail/Shredding plastic lump.jpg';
+import heavyDutyShearEdge from '@/images/detail/Sharp steel blade angle.jpg';
+import heavyDutyShearEdgeWebp from '@/images/detail/Sharp steel blade angle.webp';
+import cleanCutSteelScrap from '@/images/detail/Clean plastic flakes.jpg';
+import cleanCutSteelScrapWebp from '@/images/detail/Clean plastic flakes.webp';
+import impactResistantAlloy from '@/images/detail/Shredding plastic lump.jpg';
+import impactResistantAlloyWebp from '@/images/detail/Shredding plastic lump.webp';
 
 // Image modules for gallery
 const bladeImageModules = import.meta.glob<{ default: string }>(
   '../images/shred-blades/*.{jpg,jpeg,png,webp}',
   { eager: true }
 );
-
-// Hero image
-const metalHero = "https://mgx-backend-cdn.metadl.com/generate/images/889036/2026-01-08/2e0664f6-f1d8-44dd-903d-561e7d7e13fb.png";
 
 const TECHNICAL_HIGHLIGHTS = [
   { label: 'Alloy Composition', value: 'Premium H13 (1.2344) or Custom HMB Modified for heavy shear.' },
@@ -46,14 +50,21 @@ const PROBLEM_SOLUTIONS = [
 
 export default function MetalScrapShears() {
   const bladeImages = useMemo(() => {
-    return Object.entries(bladeImageModules)
-      .map(([path, mod]) => {
-        const fileName = path.split('/').pop() || 'blade';
-        const nameWithoutExt = fileName.replace(/\.[^.]+$/, '');
-        const alt = `Heavy Duty Scrap Shear Blade Replacement - ${nameWithoutExt.replace(/[-_]+/g, ' ')} - Metal Recycling Plant Part`;
-        return { src: mod.default, alt, fileName };
-      })
-      .sort((a, b) => a.fileName.localeCompare(b.fileName));
+    const byBase = new Map<string, { baseName: string; alt: string; webp?: string; fallback?: string }>();
+    Object.entries(bladeImageModules).forEach(([path, mod]) => {
+      const fileName = path.split('/').pop() || 'blade';
+      const baseName = fileName.replace(/\.[^.]+$/, '');
+      const ext = fileName.split('.').pop()?.toLowerCase();
+      const alt = `Heavy Duty Scrap Shear Blade Replacement - ${baseName.replace(/[-_]+/g, ' ')} - Metal Recycling Plant Part`;
+      const entry = byBase.get(baseName) ?? { baseName, alt };
+      if (ext === 'webp') {
+        entry.webp = mod.default;
+      } else if (!entry.fallback) {
+        entry.fallback = mod.default;
+      }
+      byBase.set(baseName, entry);
+    });
+    return Array.from(byBase.values()).sort((a, b) => a.baseName.localeCompare(b.baseName));
   }, []);
 
   return (
@@ -70,14 +81,19 @@ export default function MetalScrapShears() {
 
         {/* Intro Section */}
         <div className="grid lg:grid-cols-2 gap-8 sm:gap-10 lg:gap-12 mb-12">
-          <div className="order-2 lg:order-1 h-full">
-            <img
-              src={metalHero}
-              alt="Metal scrap shear blades"
-              className="rounded-lg shadow-lg w-full h-full object-cover"
-            />
+          <div className="order-2 lg:order-1">
+            <picture>
+              <source srcSet={metalHeroWebp} type="image/webp" />
+              <img
+                src={metalHero}
+                alt="Metal scrap recycling shredder blades - Heavy-duty metal processing"
+                className="rounded-lg shadow-lg object-cover"
+                style={{ width: '656px', height: '457px' }}
+                loading="eager"
+              />
+            </picture>
           </div>
-          <div className="order-1 lg:order-2 h-full">
+          <div className="order-1 lg:order-2">
             <div className="bg-slate-50 p-8 h-full flex flex-col justify-center border-l-4 border-blue-900 shadow-sm relative overflow-hidden">
               <h3 className="text-2xl font-bold text-slate-900 mb-8 uppercase tracking-widest border-b border-slate-200 pb-4 relative z-10">
                 Technical Highlights
@@ -106,7 +122,18 @@ export default function MetalScrapShears() {
             {PROBLEM_SOLUTIONS.map((solution) => (
               <div key={solution.title} className="flex flex-col h-full">
                 <div className="mb-5 aspect-[5/4] sm:aspect-[4/3] max-h-[220px] sm:max-h-[240px] overflow-hidden">
-                  <img src={solution.image} alt={`Metal blade solution - ${solution.title}`} className="w-full h-full rounded-none object-cover" loading="lazy" decoding="async" />
+                  <picture>
+                    {solution.image === impactResistantAlloy && (
+                      <source srcSet={impactResistantAlloyWebp} type="image/webp" />
+                    )}
+                    {solution.image === heavyDutyShearEdge && (
+                      <source srcSet={heavyDutyShearEdgeWebp} type="image/webp" />
+                    )}
+                    {solution.image === cleanCutSteelScrap && (
+                      <source srcSet={cleanCutSteelScrapWebp} type="image/webp" />
+                    )}
+                    <img src={solution.image} alt={`Metal blade solution - ${solution.title}`} className="w-full h-full rounded-none object-cover" loading="lazy" decoding="async" />
+                  </picture>
                 </div>
                 <h3 className="text-xl font-bold text-slate-900 mb-4">{solution.title}</h3>
                 <p className="text-slate-700 leading-relaxed flex-grow">{solution.description}</p>
@@ -124,8 +151,11 @@ export default function MetalScrapShears() {
           <div className="relative overflow-hidden">
             <div className="flex gap-3 sm:gap-4 blade-gallery-scroll">
               {[...bladeImages, ...bladeImages].map((image, index) => (
-                <div key={`${image.src}-${index}`} className="group flex-shrink-0 w-[280px] h-[280px] sm:w-[300px] sm:h-[300px] overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300">
-                  <img src={image.src} alt={image.alt} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" loading="lazy" decoding="async" />
+                <div key={`${image.baseName}-${index}`} className="group flex-shrink-0 w-[280px] h-[280px] sm:w-[300px] sm:h-[300px] overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300">
+                  <picture>
+                    {image.webp && <source srcSet={image.webp} type="image/webp" />}
+                    <img src={image.fallback || image.webp || ''} alt={image.alt} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" loading="lazy" decoding="async" />
+                  </picture>
                 </div>
               ))}
             </div>

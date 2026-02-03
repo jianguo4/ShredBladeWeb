@@ -1,0 +1,102 @@
+{
+  "timestamp": "2026-02-03T11:03:23.327435",
+  "videos": [],
+  "images": [
+    {
+      "filename": "double-shredder-blades.png",
+      "original_size_kb": 1325.4,
+      "original_dimensions": [
+        968,
+        812
+      ],
+      "formats": {
+        "webp": {
+          "size_kb": 59.4,
+          "savings_percent": 95.5
+        },
+        "webp_w750": {
+          "size_kb": 44.3,
+          "dimensions": [
+            750,
+            629
+          ]
+        },
+        "jpeg": {
+          "size_kb": 92.6,
+          "savings_percent": 93.0
+        }
+      }
+    },
+    {
+      "filename": "four-shredder-blades.png",
+      "original_size_kb": 3133.7,
+      "original_dimensions": [
+        2496,
+        1696
+      ],
+      "formats": {
+        "webp": {
+          "size_kb": 110.8,
+          "savings_percent": 96.5
+        },
+        "webp_w750": {
+          "size_kb": 27.9,
+          "dimensions": [
+            750,
+            509
+          ]
+        },
+        "webp_w1200": {
+          "size_kb": 49.2,
+          "dimensions": [
+            1200,
+            815
+          ]
+        },
+        "jpeg": {
+          "size_kb": 220.5,
+          "savings_percent": 93.0
+        }
+      }
+    },
+    {
+      "filename": "single-shredder-blades.png",
+      "original_size_kb": 6378.8,
+      "original_dimensions": [
+        2528,
+        1664
+      ],
+      "formats": {
+        "webp": {
+          "size_kb": 176.5,
+          "savings_percent": 97.2
+        },
+        "webp_w750": {
+          "size_kb": 35.6,
+          "dimensions": [
+            750,
+            493
+          ]
+        },
+        "webp_w1200": {
+          "size_kb": 68.9,
+          "dimensions": [
+            1200,
+            789
+          ]
+        },
+        "jpeg": {
+          "size_kb": 328.5,
+          "savings_percent": 94.9
+        }
+      }
+    }
+  ],
+  "summary": {
+    "total_original_size_mb": 10.58,
+    "total_optimized_size_mb": 0.34,
+    "total_savings_percent": 96.8,
+    "video_count": 0,
+    "image_count": 3
+  }
+}

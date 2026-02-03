@@ -4,19 +4,23 @@ import { ArrowRight } from 'lucide-react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 
+// Hero image
+import heroImage from '@/images/Application Scenarios/Tires & Rubbe.jpg';
+import heroImageWebp from '@/images/Application Scenarios/Tires & Rubbe.webp';
+
 // Import detail images (reused template visuals)
-import sharpSteelBladeAngle from '../images/detail/Sharp steel blade angle.jpg';
-import cleanPlasticFlakes from '../images/detail/Clean plastic flakes.jpg';
-import shreddingPlasticLump from '../images/detail/Shredding plastic lump.jpg';
+import sharpSteelBladeAngle from '@/images/detail/Sharp steel blade angle.jpg';
+import sharpSteelBladeAngleWebp from '@/images/detail/Sharp steel blade angle.webp';
+import cleanPlasticFlakes from '@/images/detail/Clean plastic flakes.jpg';
+import cleanPlasticFlakesWebp from '@/images/detail/Clean plastic flakes.webp';
+import shreddingPlasticLump from '@/images/detail/Shredding plastic lump.jpg';
+import shreddingPlasticLumpWebp from '@/images/detail/Shredding plastic lump.webp';
 
 // Image modules for gallery
 const bladeImageModules = import.meta.glob<{ default: string }>(
   '../images/shred-blades/*.{jpg,jpeg,png,webp}',
   { eager: true }
 );
-
-// Hero image
-const tireHero = "https://mgx-backend-cdn.metadl.com/generate/images/889036/2026-01-08/42a8a3ac-d8aa-44a2-a2f3-73b10225def5.png";
 
 const TECHNICAL_HIGHLIGHTS = [
   { label: 'Blade Material', value: 'H13 Tool Steel / Custom alloy for extreme wear.' },
@@ -46,14 +50,21 @@ const PROBLEM_SOLUTIONS = [
 
 export default function TireShredderKnives() {
   const bladeImages = useMemo(() => {
-    return Object.entries(bladeImageModules)
-      .map(([path, mod]) => {
-        const fileName = path.split('/').pop() || 'blade';
-        const nameWithoutExt = fileName.replace(/\.[^.]+$/, '');
-        const alt = `Tire shredder blade - ${nameWithoutExt.replace(/[-_]+/g, ' ')}`;
-        return { src: mod.default, alt, fileName };
-      })
-      .sort((a, b) => a.fileName.localeCompare(b.fileName));
+    const byBase = new Map<string, { baseName: string; alt: string; webp?: string; fallback?: string }>();
+    Object.entries(bladeImageModules).forEach(([path, mod]) => {
+      const fileName = path.split('/').pop() || 'blade';
+      const baseName = fileName.replace(/\.[^.]+$/, '');
+      const ext = fileName.split('.').pop()?.toLowerCase();
+      const alt = `Tire shredder blade - ${baseName.replace(/[-_]+/g, ' ')}`;
+      const entry = byBase.get(baseName) ?? { baseName, alt };
+      if (ext === 'webp') {
+        entry.webp = mod.default;
+      } else if (!entry.fallback) {
+        entry.fallback = mod.default;
+      }
+      byBase.set(baseName, entry);
+    });
+    return Array.from(byBase.values()).sort((a, b) => a.baseName.localeCompare(b.baseName));
   }, []);
 
   return (
@@ -71,12 +82,17 @@ export default function TireShredderKnives() {
 
         {/* Intro Section */}
         <div className="grid lg:grid-cols-2 gap-8 sm:gap-10 lg:gap-12 mb-12">
-          <div className="order-2 lg:order-1 self-start">
-            <img
-              src={tireHero}
-              alt="Tire recycling shredder blades"
-              className="rounded-lg shadow-lg w-full h-auto max-h-[380px] object-cover"
-            />
+          <div className="order-2 lg:order-1">
+            <picture>
+              <source srcSet={heroImageWebp} type="image/webp" />
+              <img
+                src={heroImage}
+                alt="Tire shredder blades - Heavy-duty knives for tire and rubber recycling"
+                className="rounded-lg shadow-lg object-cover"
+                style={{ width: '656px', height: '457px' }}
+                loading="eager"
+              />
+            </picture>
           </div>
           <div className="order-1 lg:order-2">
             <div className="bg-slate-50 p-8 flex flex-col justify-start border-l-4 border-blue-900 shadow-sm relative overflow-hidden">
@@ -107,7 +123,18 @@ export default function TireShredderKnives() {
             {PROBLEM_SOLUTIONS.map((solution) => (
               <div key={solution.title} className="flex flex-col h-full">
                 <div className="mb-5 aspect-[5/4] sm:aspect-[4/3] max-h-[220px] sm:max-h-[240px] overflow-hidden">
-                  <img src={solution.image} alt={`Tire blade solution - ${solution.title}`} className="w-full h-full rounded-none object-cover" loading="lazy" decoding="async" />
+                  <picture>
+                    {solution.image === sharpSteelBladeAngle && (
+                      <source srcSet={sharpSteelBladeAngleWebp} type="image/webp" />
+                    )}
+                    {solution.image === shreddingPlasticLump && (
+                      <source srcSet={shreddingPlasticLumpWebp} type="image/webp" />
+                    )}
+                    {solution.image === cleanPlasticFlakes && (
+                      <source srcSet={cleanPlasticFlakesWebp} type="image/webp" />
+                    )}
+                    <img src={solution.image} alt={`Tire blade solution - ${solution.title}`} className="w-full h-full rounded-none object-cover" loading="lazy" decoding="async" />
+                  </picture>
                 </div>
                 <h3 className="text-xl font-bold text-slate-900 mb-4">{solution.title}</h3>
                 <p className="text-slate-700 leading-relaxed flex-grow">{solution.description}</p>
@@ -129,8 +156,11 @@ export default function TireShredderKnives() {
           <div className="relative overflow-hidden">
             <div className="flex gap-3 sm:gap-4 blade-gallery-scroll">
               {[...bladeImages, ...bladeImages].map((image, index) => (
-                <div key={`${image.src}-${index}`} className="group flex-shrink-0 w-[280px] h-[280px] sm:w-[300px] sm:h-[300px] overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300">
-                  <img src={image.src} alt={image.alt} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" loading="lazy" decoding="async" />
+                <div key={`${image.baseName}-${index}`} className="group flex-shrink-0 w-[280px] h-[280px] sm:w-[300px] sm:h-[300px] overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300">
+                  <picture>
+                    {image.webp && <source srcSet={image.webp} type="image/webp" />}
+                    <img src={image.fallback || image.webp || ''} alt={image.alt} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" loading="lazy" decoding="async" />
+                  </picture>
                 </div>
               ))}
             </div>

@@ -45,10 +45,12 @@
   </script>
 
   <script>
-    // Register Service Worker for offline caching
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('/sw.js').catch((error) => {
-        console.log('Service Worker registration failed:', error);
+    // Register Service Worker for offline caching (production only)
+    if ('serviceWorker' in navigator && window.location.protocol === 'https:') {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js').catch((error) => {
+          console.log('Service Worker registration failed:', error);
+        });
       });
     }
   </script>

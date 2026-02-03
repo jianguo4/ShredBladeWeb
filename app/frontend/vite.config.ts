@@ -6,7 +6,7 @@ import { createHtmlPlugin } from 'vite-plugin-html';
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
-  base: './',
+  base: '/',
   plugins: [
     viteSourceLocator({
       prefix: 'mgx',
@@ -17,6 +17,8 @@ export default defineConfig(({ mode }) => ({
     }),
   ],
   server: {
+    port: 5174,
+    host: true,
     watch: { usePolling: true, interval: 800 /* 300~1500 */ },
   },
   resolve: {
@@ -28,6 +30,8 @@ export default defineConfig(({ mode }) => ({
     // 确保视频等资源被正确复制
     assetsInlineLimit: 0, // 不内联视频文件
     chunkSizeWarningLimit: 1000, // 提高警告阈值到 1000 kB
+    sourcemap: false, // 生产环境禁用 sourcemap
+    reportCompressedSize: true, // 报告压缩后的大小
     rollupOptions: {
       output: {
         // 资源文件命名
@@ -35,6 +39,14 @@ export default defineConfig(({ mode }) => ({
           // 保持视频文件的目录结构
           if (assetInfo.name.endsWith('.mp4') || assetInfo.name.endsWith('.webm')) {
             return 'videos/[name][extname]';
+          }
+          // WebP 图片保持到 assets 目录但标记为 webp
+          if (assetInfo.name.endsWith('.webp')) {
+            return 'assets/images/[name]-[hash][extname]';
+          }
+          // 字体文件单独放置
+          if (assetInfo.name.match(/\.(woff|woff2|ttf|otf|eot)$/)) {
+            return 'assets/fonts/[name]-[hash][extname]';
           }
           return 'assets/[name]-[hash][extname]';
         },
@@ -52,6 +64,9 @@ export default defineConfig(({ mode }) => ({
             if (id.includes('@tanstack')) {
               return 'query-vendor';
             }
+            if (id.includes('@radix-ui')) {
+              return 'ui-vendor';
+            }
             return 'vendor';
           }
         },
@@ -64,6 +79,13 @@ export default defineConfig(({ mode }) => ({
         drop_console: true, // 生产环境移除 console
         drop_debugger: true,
       },
+    },
+    // CSS 代码分割
+    cssCodeSplit: true,
+    // 预加载关键资源
+    dynamicImportVarsOptions: {
+      warnOnError: true,
+      exclude: [],
     },
   },
 }));

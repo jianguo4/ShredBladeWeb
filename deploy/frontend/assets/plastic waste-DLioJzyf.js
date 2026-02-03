@@ -1,0 +1,1 @@
+const e="/assets/plastic%20waste-BUsVGDmi.jpg",t=Object.freeze(Object.defineProperty({__proto__:null,default:e},Symbol.toStringTag,{value:"Module"})),a="/assets/images/plastic%20waste-CkAP9c5e.webp",s=Object.freeze(Object.defineProperty({__proto__:null,default:a},Symbol.toStringTag,{value:"Module"}));export{s as _,t as a,e as b,a as p};

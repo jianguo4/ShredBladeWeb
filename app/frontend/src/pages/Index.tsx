@@ -53,25 +53,69 @@ export default function Index() {
     { eager: true }
   );
 
+  const homeImageModules = import.meta.glob<{ default: string }>(
+    '../images/home/*.webp',
+    { eager: true }
+  );
+
+  const getHomeImage = (fileName: string) =>
+    homeImageModules[`../images/home/${fileName}`]?.default ?? '';
+
   const getSceneImage = (fileName: string) =>
     applicationImageModules[`../images/scene/${fileName}`]?.default ?? '';
 
+  const getSceneImageBase = (fileName: string) => fileName.replace(/\.[^.]+$/, '');
+
+  const getSceneImageByExt = (fileName: string, ext: 'webp' | 'jpg' | 'jpeg' | 'png') =>
+    applicationImageModules[`../images/scene/${getSceneImageBase(fileName)}.${ext}`]?.default ?? '';
+
+  const shaftTypes = [
+    {
+      title: 'Single Shaft',
+      image: 'single-shredder-blades.webp',
+      description: 'Ideal for high-volume processing of plastics, paper, and lightweight materials. Features rotating blades with hydraulic ram feeding system for consistent particle size.'
+    },
+    {
+      title: 'Double Shaft',
+      image: 'double-shredder-blades.webp',
+      description: 'Versatile solution for mixed waste streams including e-waste, tires, and industrial scrap. Twin counter-rotating shafts provide powerful cutting action with minimal maintenance.'
+    },
+    {
+      title: 'Four Shaft',
+      image: 'four-shredder-blades.webp',
+      description: 'Premium system for ultra-fine size reduction and homogeneous output. Combines pre-shredding and secondary cutting stages for maximum throughput and precision control.'
+    }
+  ];
+
   const manufacturingImageModules = import.meta.glob<{ default: string }>(
-    '../images/MANUFACTURING PROCESS/*.{jpg,jpeg,png,webp}',
+    '../images/MANUFACTURING PROCESS/*.webp',
     { eager: true }
   );
 
   const manufacturingSteps = useMemo(() => {
+    const sortOrder = ['material', 'forging', 'heat','cnc', 'grinding',  'wire', 'quality', 'pack'];
+    const getSortIndex = (fileName: string) => {
+      const name = fileName.toLowerCase();
+      const index = sortOrder.findIndex((key) => name.includes(key));
+      return index === -1 ? Number.POSITIVE_INFINITY : index;
+    };
+
     return Object.entries(manufacturingImageModules)
       .map(([path, mod]) => {
         const fileName = path.split('/').pop() || 'process';
         const nameWithoutExt = fileName.replace(/\.[^.]+$/, '');
         const title = nameWithoutExt.replace(/[-_]+/g, ' ').trim();
         const alt = `Manufacturing process - ${title}`;
-        return { src: mod.default, title, alt, fileName };
+        return { src: mod.default, title, alt, fileName, baseName: nameWithoutExt };
       })
-      .sort((a, b) => a.fileName.localeCompare(b.fileName));
+      .sort((a, b) => {
+        const orderDiff = getSortIndex(a.fileName) - getSortIndex(b.fileName);
+        return orderDiff !== 0 ? orderDiff : a.fileName.localeCompare(b.fileName);
+      });
   }, []);
+
+  const heroPosterWebp = getSceneImageByExt('plastic waste.jpg', 'webp');
+  const heroPosterJpg = getSceneImageByExt('plastic waste.jpg', 'jpg') || getSceneImage('plastic waste.jpg');
 
   return (
       <div className="min-h-screen bg-slate-50 overflow-x-hidden">
@@ -103,7 +147,8 @@ export default function Index() {
           loop
           muted
           playsInline
-          preload="none"
+          preload="metadata"
+          poster={heroPosterWebp || heroPosterJpg}
           onError={(e) => {
             console.error('Failed to load video:', e);
             setVideoLoaded(true);
@@ -115,6 +160,7 @@ export default function Index() {
             });
           }}
         >
+          <source src="videos/Shredder-machine-running.webm" type="video/webm" />
           <source src="videos/Shredder-machine-running.mp4" type="video/mp4" />
           Your browser does not support the video tag.
         </video>
@@ -308,15 +354,23 @@ export default function Index() {
               <Link key={index} to={app.link} className="group block cursor-pointer w-full">
                 <div className="relative overflow-hidden bg-slate-900 shadow-lg hover:shadow-2xl transition-all duration-300 w-full aspect-[3/2]">
                   {/* Background Image */}
-                  <div className="absolute inset-0 bg-gray-700 animate-pulse">
-                      <img 
-                      src={getSceneImage(app.imageFile)} 
-                      alt={app.title}
-                      className="w-full h-full object-cover opacity-70 group-hover:opacity-90 group-hover:scale-105 transition-all duration-500"
-                      loading="lazy"
-                      decoding="async"
-                      fetchPriority="low"
-                    />
+                  <div className="absolute inset-0 bg-gray-700">
+                    <picture>
+                      {getSceneImageByExt(app.imageFile, 'webp') && (
+                        <source
+                          srcSet={getSceneImageByExt(app.imageFile, 'webp')}
+                          type="image/webp"
+                        />
+                      )}
+                      <img
+                        src={getSceneImageByExt(app.imageFile, 'jpg') || getSceneImage(app.imageFile)}
+                        alt={app.title}
+                        className="w-full h-full object-cover opacity-70 group-hover:opacity-90 group-hover:scale-105 transition-all duration-500"
+                        loading="lazy"
+                        decoding="async"
+                        fetchPriority="low"
+                      />
+                    </picture>
                   </div>
 
                   {/* Gradient Overlay */}
@@ -349,62 +403,39 @@ export default function Index() {
         </div>
       </section>
 
-      {/* Engineering Excellence Section - Combined Metallurgy & Precision */}
+      {/* Engineering Excellence Section - Shaft Types */}
       <section className="py-12 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Main Title */}
           <div className="text-left mb-12">
             <h2 className="text-4xl font-bold text-gray-900 mb-4">
-              Engineered Metallurgy for Every Application
+              Engineered Metallurgy for Different Shaft
             </h2>
             <p className="text-lg text-slate-600">
-              Material science and precision manufacturing tailored to your specific shredding challenges
+              Precision-engineered blade solutions optimized for single, double, and four-shaft shredder configurations
             </p>
           </div>
 
-          {/* Material Science - 3 Cards */}
+          {/* Shaft Types - 3 Cards */}
           <div className="grid md:grid-cols-3 gap-8 mb-16">
-            {/* For Plastics */}
-            <Card className="bg-white border border-slate-200 shadow-sm hover:shadow-lg transition-all duration-300">
-              <CardContent className="p-8">
-                <div className="w-14 h-14 bg-blue-500/10 flex items-center justify-center mb-6">
-                  <Shield className="w-8 h-8 text-blue-600" />
+            {shaftTypes.map((shaft, index) => (
+              <Card key={index} className="bg-white border border-slate-200 shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden">
+                <div className="relative h-48 overflow-hidden">
+                  <img
+                    src={getHomeImage(shaft.image)}
+                    alt={shaft.title}
+                    className="w-full h-full object-cover"
+                    loading="lazy"
+                  />
                 </div>
-                <h3 className="text-2xl font-bold text-slate-900 mb-3">For Plastics</h3>
-                <p className="text-slate-600 mb-4 font-semibold">D2 / SKD11</p>
-                <p className="text-slate-600 leading-relaxed">
-                  High-chromium tool steel, heat-treated to 58-60 HRC. Delivers razor-sharp cuts with minimal dust/fines.
-                </p>
-              </CardContent>
-            </Card>
-
-            {/* For Scrap Metal */}
-            <Card className="bg-white border border-slate-200 shadow-sm hover:shadow-lg transition-all duration-300">
-              <CardContent className="p-8">
-                <div className="w-14 h-14 bg-amber-500/10 flex items-center justify-center mb-6">
-                  <Award className="w-8 h-8 text-amber-600" />
-                </div>
-                <h3 className="text-2xl font-bold text-slate-900 mb-3">For Scrap Metal</h3>
-                <p className="text-slate-600 mb-4 font-semibold">H13 / DC53</p>
-                <p className="text-slate-600 leading-relaxed">
-                  Impact-resistant alloys designed with high toughness to withstand shock loads without chipping.
-                </p>
-              </CardContent>
-            </Card>
-
-            {/* For Tires */}
-            <Card className="bg-white border border-slate-200 shadow-sm hover:shadow-lg transition-all duration-300">
-              <CardContent className="p-8">
-                <div className="w-14 h-14 bg-slate-500/10 flex items-center justify-center mb-6">
-                  <CheckCircle2 className="w-8 h-8 text-slate-600" />
-                </div>
-                <h3 className="text-2xl font-bold text-slate-900 mb-3">For Tires</h3>
-                <p className="text-slate-600 mb-4 font-semibold">Custom Alloy</p>
-                <p className="text-slate-600 leading-relaxed">
-                  Specialized wear-resistant geometry designed to handle steel wire separation and high friction.
-                </p>
-              </CardContent>
-            </Card>
+                <CardContent className="p-8">
+                  <h3 className="text-2xl font-bold text-slate-900 mb-4">{shaft.title}</h3>
+                  <p className="text-slate-600 leading-relaxed">
+                    {shaft.description}
+                  </p>
+                </CardContent>
+              </Card>
+            ))}
           </div>
         </div>
       </section>
@@ -428,7 +459,7 @@ export default function Index() {
               {[...manufacturingSteps, ...manufacturingSteps].map((step, index) => (
                 <div key={`${step.fileName}-${index}`} className="flex-shrink-0 w-64 sm:w-80">
                   <div className="bg-white shadow-lg overflow-hidden border border-slate-200">
-                    <img 
+                    <img
                       src={step.src}
                       alt={step.alt}
                       className="w-full h-48 sm:h-56 object-cover bg-gray-200"

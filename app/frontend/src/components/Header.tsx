@@ -12,7 +12,7 @@ import { Menu } from 'lucide-react';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 
 export default function Header() {
-  const [navValue, setNavValue] = useState<string | undefined>(undefined);
+  const [navValue, setNavValue] = useState<string>('');
   const closeTimer = useRef<NodeJS.Timeout | null>(null);
 
   const keepProductsOpen = () => {
@@ -26,7 +26,7 @@ export default function Header() {
     if (closeTimer.current) {
       clearTimeout(closeTimer.current);
     }
-    closeTimer.current = setTimeout(() => setNavValue(undefined), 16);
+    closeTimer.current = setTimeout(() => setNavValue(''), 16);
   };
 
   useEffect(() => () => {

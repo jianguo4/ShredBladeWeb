@@ -182,13 +182,13 @@
     transform: translateX(0);
   }
   100% {
-    transform: translateX(-50%);
+    transform: translateX(-120%);
   }
 }
 
 @layer utilities {
   .blade-gallery-scroll {
-    animation: blade-scroll 20s linear infinite;
+    animation: blade-scroll 22s linear infinite;
   }
 }
 

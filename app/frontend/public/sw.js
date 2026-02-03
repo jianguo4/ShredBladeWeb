@@ -33,8 +33,10 @@ self.addEventListener('fetch', (event) => {
       fetch(request)
         .then((response) => {
           if (response.ok) {
-            const cache = caches.open(CACHE_NAME);
-            cache.then((c) => c.put(request, response.clone()));
+            const responseClone = response.clone();
+            caches.open(CACHE_NAME)
+              .then((cache) => cache.put(request, responseClone))
+              .catch((err) => console.warn('Cache put failed:', err));
           }
           return response;
         })
@@ -48,6 +50,28 @@ self.addEventListener('fetch', (event) => {
   }
 
   // Cache-first strategy for assets
+  if (request.destination === 'image' || request.destination === 'script' || 
+      request.destination === 'style' || request.url.includes('/assets/')) {
+    event.respondWith(
+      caches.match(request)
+        .then((response) => {
+          if (response) {
+            return response;
+          }
+          return fetch(request)
+            .then((fetchResponse) => {
+              if (fetchResponse.ok) {
+                const responseClone = fetchResponse.clone();
+                caches.open(CACHE_NAME)
+                  .then((cache) => cache.put(request, responseClone))
+                  .catch((err) => console.warn('Cache put failed:', err));
+              }
+              return fetchResponse;
+            });
+        })
+    );
+    return;
+  }
   event.respondWith(
     caches.match(request).then((response) => {
       if (response) {

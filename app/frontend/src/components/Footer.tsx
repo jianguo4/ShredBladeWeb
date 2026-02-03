@@ -73,7 +73,7 @@ export default function Footer() {
               </li>
               <li className="flex items-center gap-2">
                 <Phone className="h-4 w-4 flex-shrink-0" />
-                <span>(+86)1555175738911111</span>
+                <span>(+86)15551757389</span>
               </li>
               <li>
                 <Link to="/about-us" className="hover:text-white transition-colors duration-200">

@@ -4,10 +4,15 @@ import { Card, CardContent } from '@/components/ui/card';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import factoryImage from '../images/about-us/factory.jpg';
+import factoryImageWebp from '../images/about-us/factory.webp';
 import qualityInspectionImage from '../images/about-us/Quality-Inspection.jpg';
-import cncMachiningImage from '../images/MANUFACTURING PROCESS/03-CNC-Machining.jpg';
-import heatTreatmentImage from '../images/MANUFACTURING PROCESS/Grinding.jpg';
-import rawMaterialImage from '../images/MANUFACTURING PROCESS/Raw Material Selection.jpg';
+import qualityInspectionImageWebp from '../images/about-us/Quality-Inspection.webp';
+import cncMachiningImage from '../images/MANUFACTURING PROCESS/CNC Machining.webp';
+import cncMachiningImageWebp from '../images/MANUFACTURING PROCESS/CNC Machining.webp';
+import heatTreatmentImage from '../images/MANUFACTURING PROCESS/Heat Treatment.webp';
+import heatTreatmentImageWebp from '../images/MANUFACTURING PROCESS/Heat Treatment.webp';
+import rawMaterialImage from '../images/MANUFACTURING PROCESS/Raw Material Selection.webp';
+import rawMaterialImageWebp from '../images/MANUFACTURING PROCESS/Raw Material Selection.webp';
 
 export default function AboutUs() {
   return (
@@ -37,11 +42,16 @@ export default function AboutUs() {
 
         <div className="grid lg:grid-cols-2 gap-12 mb-16">
           <div className="self-start">
-            <img
-              src={factoryImage}
-              alt="Liqun Machinery factory floor - Heavy duty shredder blade CNC machining center with precision grinding equipment"
-              className="rounded-lg shadow-lg w-full h-auto object-cover"
-            />
+            <picture>
+              <source srcSet={factoryImageWebp} type="image/webp" />
+              <img
+                src={factoryImage}
+                alt="Liqun Machinery factory floor - Heavy duty shredder blade CNC machining center with precision grinding equipment"
+                className="rounded-lg shadow-lg w-full h-auto object-cover"
+                loading="lazy"
+                decoding="async"
+              />
+            </picture>
           </div>
           <div>
             <h2 className="text-3xl font-bold mb-6 text-gray-900">Engineering High-Performance Blades Since 2008</h2>
@@ -60,64 +70,13 @@ export default function AboutUs() {
         <section className="mb-16">
           <h2 className="text-3xl font-bold mb-8 text-gray-900">Our Precision Manufacturing: CNC & Heat Treatment</h2>
           <div className="grid md:grid-cols-3 gap-6">
-            {/* Card 1: CNC Machining with Background Image */}
+            {/* Card 1: Certified Materials with Background Image */}
             <Card className="overflow-hidden relative group">
               <div className="absolute inset-0">
-                <img src={cncMachiningImage} alt="CNC Machining" className="w-full h-full object-cover opacity-50 group-hover:opacity-100 transition-opacity duration-300" />
-                <div className="absolute inset-0 bg-gradient-to-b from-[#1A365D]/70 to-[#1A365D]/50 group-hover:from-[#1A365D]/20 group-hover:to-[#1A365D]/10 transition-all duration-300"></div>
-              </div>
-              <CardContent className="p-6 relative z-10">
-                <h3 className="text-xl font-bold mb-3 text-amber-300">Precision Machining</h3>
-                <p className="text-amber-100 mb-4">
-                  CNC machining centers ensure dimensional accuracy within <strong>±0.05mm tolerance</strong>
-                </p>
-                <ul className="text-sm text-amber-100 space-y-2">
-                  <li className="flex items-start gap-2">
-                    <span className="text-amber-400 font-bold">•</span>
-                    <span><strong>5-axis CNC machines</strong> for complex geometries</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-amber-400 font-bold">•</span>
-                    <span><strong>Wire EDM capability</strong> for precision cutting</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-amber-400 font-bold">•</span>
-                    <span><strong>Surface grinding</strong> - Ra 0.8</span>
-                  </li>
-                </ul>
-              </CardContent>
-            </Card>
-            {/* Card 2: Heat Treatment with Background Image */}
-            <Card className="overflow-hidden relative group">
-              <div className="absolute inset-0">
-                <img src={heatTreatmentImage} alt="Heat Treatment" className="w-full h-full object-cover opacity-50 group-hover:opacity-100 transition-opacity duration-300" />
-                <div className="absolute inset-0 bg-gradient-to-b from-[#1A365D]/70 to-[#1A365D]/50 group-hover:from-[#1A365D]/20 group-hover:to-[#1A365D]/10 transition-all duration-300"></div>
-              </div>
-              <CardContent className="p-6 relative z-10">
-                <h3 className="text-xl font-bold mb-3 text-amber-300">Heat Treatment</h3>
-                <p className="text-amber-100 mb-4">
-                  <strong>Vacuum Hardening & Cryogenic Treatment (-196°C)</strong> for optimal material properties
-                </p>
-                <ul className="text-sm text-amber-100 space-y-2">
-                  <li className="flex items-start gap-2">
-                    <span className="text-amber-400 font-bold">•</span>
-                    <span><strong>Vacuum hardening</strong> prevents oxidation</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-amber-400 font-bold">•</span>
-                    <span><strong>Cryogenic treatment</strong> improves toughness</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-amber-400 font-bold">•</span>
-                    <span><strong>Controlled tempering</strong> ensures consistency</span>
-                  </li>
-                </ul>
-              </CardContent>
-            </Card>
-            {/* Card 3: Certified Materials with Background Image */}
-            <Card className="overflow-hidden relative group">
-              <div className="absolute inset-0">
-                <img src={rawMaterialImage} alt="Raw Material" className="w-full h-full object-cover opacity-50 group-hover:opacity-100 transition-opacity duration-300" />
+                <picture>
+                  <source srcSet={rawMaterialImageWebp} type="image/webp" />
+                  <img src={rawMaterialImage} alt="Raw Material" className="w-full h-full object-cover opacity-50 group-hover:opacity-100 transition-opacity duration-300" loading="lazy" decoding="async" />
+                </picture>
                 <div className="absolute inset-0 bg-gradient-to-b from-[#1A365D]/70 to-[#1A365D]/50 group-hover:from-[#1A365D]/20 group-hover:to-[#1A365D]/10 transition-all duration-300"></div>
               </div>
               <CardContent className="p-6 relative z-10">
@@ -141,6 +100,66 @@ export default function AboutUs() {
                 </ul>
               </CardContent>
             </Card>
+            {/* Card 2: Heat Treatment with Background Image */}
+            <Card className="overflow-hidden relative group">
+              <div className="absolute inset-0">
+                <picture>
+                  <source srcSet={heatTreatmentImageWebp} type="image/webp" />
+                  <img src={heatTreatmentImage} alt="Heat Treatment" className="w-full h-full object-cover opacity-50 group-hover:opacity-100 transition-opacity duration-300" loading="lazy" decoding="async" />
+                </picture>
+                <div className="absolute inset-0 bg-gradient-to-b from-[#1A365D]/70 to-[#1A365D]/50 group-hover:from-[#1A365D]/20 group-hover:to-[#1A365D]/10 transition-all duration-300"></div>
+              </div>
+              <CardContent className="p-6 relative z-10">
+                <h3 className="text-xl font-bold mb-3 text-amber-300">Heat Treatment</h3>
+                <p className="text-amber-100 mb-4">
+                  <strong>Vacuum Hardening & Cryogenic Treatment (-196°C)</strong> for optimal material properties
+                </p>
+                <ul className="text-sm text-amber-100 space-y-2">
+                  <li className="flex items-start gap-2">
+                    <span className="text-amber-400 font-bold">•</span>
+                    <span><strong>Vacuum hardening</strong> prevents oxidation</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-amber-400 font-bold">•</span>
+                    <span><strong>Cryogenic treatment</strong> improves toughness</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-amber-400 font-bold">•</span>
+                    <span><strong>Controlled tempering</strong> ensures consistency</span>
+                  </li>
+                </ul>
+              </CardContent>
+            </Card>
+            {/* Card 3: CNC Machining with Background Image */}
+            <Card className="overflow-hidden relative group">
+              <div className="absolute inset-0">
+                <picture>
+                  <source srcSet={cncMachiningImageWebp} type="image/webp" />
+                  <img src={cncMachiningImage} alt="CNC Machining" className="w-full h-full object-cover opacity-50 group-hover:opacity-100 transition-opacity duration-300" loading="lazy" decoding="async" />
+                </picture>
+                <div className="absolute inset-0 bg-gradient-to-b from-[#1A365D]/70 to-[#1A365D]/50 group-hover:from-[#1A365D]/20 group-hover:to-[#1A365D]/10 transition-all duration-300"></div>
+              </div>
+              <CardContent className="p-6 relative z-10">
+                <h3 className="text-xl font-bold mb-3 text-amber-300">Precision Machining</h3>
+                <p className="text-amber-100 mb-4">
+                  CNC machining centers ensure dimensional accuracy within <strong>±0.05mm tolerance</strong>
+                </p>
+                <ul className="text-sm text-amber-100 space-y-2">
+                  <li className="flex items-start gap-2">
+                    <span className="text-amber-400 font-bold">•</span>
+                    <span><strong>5-axis CNC machines</strong> for complex geometries</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-amber-400 font-bold">•</span>
+                    <span><strong>Wire EDM capability</strong> for precision cutting</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-amber-400 font-bold">•</span>
+                    <span><strong>Surface grinding</strong> - Ra 0.8</span>
+                  </li>
+                </ul>
+              </CardContent>
+            </Card>
           </div>
         </section>
 
@@ -148,11 +167,16 @@ export default function AboutUs() {
           <h2 className="text-3xl font-bold mb-8 text-gray-900">Quality Control</h2>
           <div className="grid lg:grid-cols-2 gap-12">
             <div>
-              <img
-                src={qualityInspectionImage}
-                alt="Quality Control Inspection - Hardness testing equipment for SKD11 industrial shredder knives with metallographic microscope"
-                className="rounded-lg shadow-lg w-full"
-              />
+              <picture>
+                <source srcSet={qualityInspectionImageWebp} type="image/webp" />
+                <img
+                  src={qualityInspectionImage}
+                  alt="Quality Control Inspection - Hardness testing equipment for SKD11 industrial shredder knives with metallographic microscope"
+                  className="rounded-lg shadow-lg w-full"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </picture>
             </div>
             <div>
               <h3 className="text-2xl font-bold mb-4 text-gray-900">Our Quality Process</h3>
