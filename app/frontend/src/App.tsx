@@ -4,6 +4,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import { useEffect, lazy, Suspense } from 'react';
 import CookieBanner from './components/CookieBanner';
+import { initImageProtection } from '@/utils/imageProtection';
 
 // Lazy load pages for better performance
 const Index = lazy(() => import('./pages/Index'));
@@ -39,6 +40,8 @@ const ScrollToTop = () => {
 
   useEffect(() => {
     window.scrollTo(0, 0);
+    // 初始化图片防护
+    initImageProtection();
   }, [location.pathname]);
 
   return null;

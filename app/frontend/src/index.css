@@ -198,6 +198,25 @@
   }
 }
 
+/* ========== 图片防护 - 禁止下载 ========== */
+/* 禁止选择图片 */
+img {
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -webkit-user-drag: none;
+  pointer-events: none;
+}
+
+/* 禁止右键菜单和拖拽 */
+img[src*="/images/"] {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
 /* Utility: clamp text to 4 lines */
 @layer utilities {
   .line-clamp-4 {
