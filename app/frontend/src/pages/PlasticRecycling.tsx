@@ -12,7 +12,7 @@ import shreddingPlasticLumpWebp from '@/images/detail/Shredding plastic lump.web
 
 // Image modules
 const bladeImageModules = import.meta.glob<{ default: string }>(
-  '../images/shred-blades/*.{jpg,jpeg,png,webp}',
+  '../images/single-shaft-shredder-blades/*.webp',
   { eager: true }
 );
 

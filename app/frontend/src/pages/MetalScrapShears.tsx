@@ -14,7 +14,7 @@ import impactResistantAlloyWebp from '@/images/detail/Shredding plastic lump.web
 
 // Image modules for gallery
 const bladeImageModules = import.meta.glob<{ default: string }>(
-  '../images/shred-blades/*.{jpg,jpeg,png,webp}',
+  '../images/single-shaft-shredder-blades/*.webp',
   { eager: true }
 );
 
@@ -119,13 +119,13 @@ export default function MetalScrapShears() {
               <div key={solution.title} className="flex flex-col h-full">
                 <div className="mb-5 aspect-[5/4] sm:aspect-[4/3] max-h-[220px] sm:max-h-[240px] overflow-hidden">
                   <picture>
-                    {solution.image === impactResistantAlloy && (
+                    {solution.image === impactResistantAlloyWebp && (
                       <source srcSet={impactResistantAlloyWebp} type="image/webp" />
                     )}
-                    {solution.image === heavyDutyShearEdge && (
+                    {solution.image === heavyDutyShearEdgeWebp && (
                       <source srcSet={heavyDutyShearEdgeWebp} type="image/webp" />
                     )}
-                    {solution.image === cleanCutSteelScrap && (
+                    {solution.image === cleanCutSteelScrapWebp && (
                       <source srcSet={cleanCutSteelScrapWebp} type="image/webp" />
                     )}
                     <img src={solution.image} alt={`Metal blade solution - ${solution.title}`} className="w-full h-full rounded-none object-cover" loading="lazy" decoding="async" />

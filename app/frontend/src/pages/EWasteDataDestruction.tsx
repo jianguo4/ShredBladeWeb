@@ -12,7 +12,7 @@ import cleanPlasticFlakesWebp from '@/images/detail/Clean plastic flakes.webp';
 import shreddingPlasticLumpWebp from '@/images/detail/Shredding plastic lump.webp';
 
 const bladeImageModules = import.meta.glob<{ default: string }>(
-  '../images/shred-blades/*.{jpg,jpeg,png,webp}',
+  '../images/single-shaft-shredder-blades/*.webp',
   { eager: true }
 );
 
