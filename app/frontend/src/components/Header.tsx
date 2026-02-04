@@ -120,31 +120,9 @@ export default function Header() {
                   >
                     <div className="grid w-[500px] gap-0 p-0 grid-cols-2 bg-white rounded-md overflow-hidden shadow-xl border border-slate-100">
                       
-                      {/* Column 1: Applications */}
+                      {/* Column 1: Shaft Type */}
                       <div className="p-4 bg-slate-50/50 border-r border-slate-100">
-                        <div className="mb-3 flex items-center gap-2 border-b border-slate-200 pb-2">
-                          <div className="h-5 w-1 bg-amber-500 rounded-sm"></div>
-                          <h4 className="text-sm font-bold text-slate-900 font-['Oswald'] uppercase tracking-wide">
-                            By Applications
-                          </h4>
-                        </div>
-                        <ul className="space-y-1">
-                          {applicationProducts.map((item) => (
-                            <li key={item.title}>
-                              <Link
-                                to={item.href}
-                                className="group block select-none rounded w-full p-2 leading-none no-underline outline-none transition-all hover:bg-white hover:shadow-sm border border-transparent hover:border-slate-200 text-sm font-bold text-slate-700 group-hover:text-amber-600 font-['Oswald'] tracking-wide"
-                              >
-                                {item.title}
-                              </Link>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-
-                      {/* Column 2: Shaft Type */}
-                      <div className="p-4">
-                         <div className="mb-3 flex items-center gap-2 border-b border-slate-100 pb-2">
+                         <div className="mb-3 flex items-center gap-2 border-b border-slate-200 pb-2">
                             <div className="h-5 w-1 bg-blue-700 rounded-sm"></div>
                             <h4 className="text-sm font-bold text-slate-900 font-['Oswald'] uppercase tracking-wide">
                               By Shaft Type
@@ -162,6 +140,28 @@ export default function Header() {
                               </li>
                             ))}
                           </ul>
+                      </div>
+
+                      {/* Column 2: Applications */}
+                      <div className="p-4">
+                        <div className="mb-3 flex items-center gap-2 border-b border-slate-100 pb-2">
+                          <div className="h-5 w-1 bg-amber-500 rounded-sm"></div>
+                          <h4 className="text-sm font-bold text-slate-900 font-['Oswald'] uppercase tracking-wide">
+                            By Applications
+                          </h4>
+                        </div>
+                        <ul className="space-y-1">
+                          {applicationProducts.map((item) => (
+                            <li key={item.title}>
+                              <Link
+                                to={item.href}
+                                className="group block select-none rounded w-full p-2 leading-none no-underline outline-none transition-all hover:bg-white hover:shadow-sm border border-transparent hover:border-slate-200 text-sm font-bold text-slate-700 group-hover:text-amber-600 font-['Oswald'] tracking-wide"
+                              >
+                                {item.title}
+                              </Link>
+                            </li>
+                          ))}
+                        </ul>
                       </div>
                     </div>
                   </NavigationMenuContent>

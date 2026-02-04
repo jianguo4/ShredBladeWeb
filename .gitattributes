@@ -1,17 +1,14 @@
 # Git LFS 配置 - 追踪大型媒体文件优化版本
 # 注意：仅追踪优化后的高效格式，避免存储原始大文件
-
 # 视频文件
 *.mp4 filter=lfs diff=lfs merge=lfs -text
 *.webm filter=lfs diff=lfs merge=lfs -text
-
 # 大型图片文件 (> 500KB 的场景图片)
 app/frontend/src/images/scene/*.webp filter=lfs diff=lfs merge=lfs -text
 app/frontend/src/images/scene/*.jpg filter=lfs diff=lfs merge=lfs -text
-
 # 大型产品图片
 app/frontend/src/images/double-shaft-shredder-blades/*-001.webp filter=lfs diff=lfs merge=lfs -text
 app/frontend/src/images/single-shaft-shredder-blades/*.webp filter=lfs diff=lfs merge=lfs -text
-
 # PNG 文件（通常较大）
 app/frontend/src/images/industrial-waste/*.png filter=lfs diff=lfs merge=lfs -text
+app/frontend/public/videos/Shredder-machine-running.mp4 filter=lfs diff=lfs merge=lfs -text
