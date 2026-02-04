@@ -10,6 +10,17 @@ export default function Index() {
   const [isPageReady, setIsPageReady] = useState(false);
   const [videoLoaded, setVideoLoaded] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
+  const manufacturingScrollRef = useRef<HTMLDivElement>(null);
+
+  const scrollManufacturing = (direction: 'prev' | 'next') => {
+    const container = manufacturingScrollRef.current;
+    if (!container) return;
+    const amount = Math.round(container.clientWidth * 0.8);
+    container.scrollBy({
+      left: direction === 'next' ? amount : -amount,
+      behavior: 'smooth'
+    });
+  };
 
   useEffect(() => {
     // 页面加载后立即标记为就绪，避免闪烁
@@ -148,6 +159,7 @@ export default function Index() {
           muted
           playsInline
           preload="metadata"
+          aria-label="Shredder machinery running in a factory environment"
           poster={heroPosterWebp || heroPosterJpg}
           onError={(e) => {
             console.error('Failed to load video:', e);
@@ -167,6 +179,7 @@ export default function Index() {
 
         {/* 视频遮罩层 */}
         <div className="absolute inset-0 bg-black opacity-40" aria-hidden="true"></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-black/50 via-black/20 to-transparent" aria-hidden="true"></div>
         
         {/* 内容区域 - 立即显示，带淡入动画 */}
         <div className={`max-w-4xl mr-8 lg:mr-16 px-4 sm:px-6 lg:px-8 text-left relative z-10 text-white transition-all duration-700 ${
@@ -188,8 +201,31 @@ export default function Index() {
         </div>
       </section>
 
+      {/* Trust Signal Section */}
+      <section className="py-8 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid md:grid-cols-3 gap-6">
+            <div className="border border-slate-200 rounded-xl p-6 bg-slate-50">
+              <p className="text-sm text-slate-500 uppercase tracking-widest mb-2">Facilities Served</p>
+              <p className="text-3xl font-bold text-slate-900">1,200+</p>
+              <p className="text-sm text-slate-600 mt-2">Global recycling and waste operations</p>
+            </div>
+            <div className="border border-slate-200 rounded-xl p-6 bg-slate-50">
+              <p className="text-sm text-slate-500 uppercase tracking-widest mb-2">Quality System</p>
+              <p className="text-3xl font-bold text-slate-900">ISO Ready</p>
+              <p className="text-sm text-slate-600 mt-2">Traceable metallurgy and QC documentation</p>
+            </div>
+            <div className="border border-slate-200 rounded-xl p-6 bg-slate-50">
+              <p className="text-sm text-slate-500 uppercase tracking-widest mb-2">Delivery Lead Time</p>
+              <p className="text-3xl font-bold text-slate-900">2-4 Weeks</p>
+              <p className="text-sm text-slate-600 mt-2">Rapid production for critical spares</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Customer Problems Section */}
-      <section className="py-24 bg-white">
+      <section className="py-16 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-left max-w-3xl mb-16">
             <h2 className="text-4xl font-bold text-slate-900 mb-6">
@@ -204,11 +240,10 @@ export default function Index() {
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             {/* Problem 1 */}
-            <Card className="bg-slate-50 border border-slate-200 shadow-sm hover:shadow-md transition-all duration-300 group relative overflow-hidden rounded-none">
-              <div className="absolute top-0 left-0 w-1 h-full bg-[#1A365D]"></div>
+            <Card className="bg-white border border-slate-200 border-t-4 border-t-[#1A365D] shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group relative overflow-hidden rounded-none">
               <CardContent className="p-8">
-                <div className="w-14 h-14 bg-[#1A365D]/5 flex items-center justify-center mb-6 group-hover:bg-[#1A365D]/10 transition-colors">
-                  <Clock className="w-8 h-8 text-[#1A365D]" />
+                <div className="w-16 h-16 bg-[#1A365D]/10 flex items-center justify-center mb-6 group-hover:bg-[#1A365D]/20 transition-colors">
+                  <Clock className="w-8 h-8 text-[#1A365D]" aria-hidden="true" />
                 </div>
                 <h3 className="text-xl font-bold text-slate-900 mb-3 whitespace-nowrap">Premature Wear</h3>
                 <p className="text-slate-600 leading-relaxed">
@@ -218,11 +253,10 @@ export default function Index() {
             </Card>
 
             {/* Problem 2 */}
-            <Card className="bg-slate-50 border border-slate-200 shadow-sm hover:shadow-md transition-all duration-300 group relative overflow-hidden rounded-none">
-              <div className="absolute top-0 left-0 w-1 h-full bg-[#1A365D]"></div>
+            <Card className="bg-white border border-slate-200 border-t-4 border-t-[#1A365D] shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group relative overflow-hidden rounded-none">
               <CardContent className="p-8">
-                <div className="w-14 h-14 bg-[#1A365D]/5 flex items-center justify-center mb-6 group-hover:bg-[#1A365D]/10 transition-colors">
-                  <BarChart3 className="w-8 h-8 text-[#1A365D]" />
+                <div className="w-16 h-16 bg-[#1A365D]/10 flex items-center justify-center mb-6 group-hover:bg-[#1A365D]/20 transition-colors">
+                  <BarChart3 className="w-8 h-8 text-[#1A365D]" aria-hidden="true" />
                 </div>
                 <h3 className="text-xl font-bold text-slate-900 mb-3 whitespace-nowrap">Unstable Performance</h3>
                 <p className="text-slate-600 leading-relaxed">
@@ -232,11 +266,10 @@ export default function Index() {
             </Card>
 
             {/* Problem 3 */}
-            <Card className="bg-slate-50 border border-slate-200 shadow-sm hover:shadow-md transition-all duration-300 group relative overflow-hidden rounded-none">
-              <div className="absolute top-0 left-0 w-1 h-full bg-[#1A365D]"></div>
+            <Card className="bg-white border border-slate-200 border-t-4 border-t-[#1A365D] shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group relative overflow-hidden rounded-none">
               <CardContent className="p-8">
-                <div className="w-14 h-14 bg-[#1A365D]/5 flex items-center justify-center mb-6 group-hover:bg-[#1A365D]/10 transition-colors">
-                  <DollarSign className="w-8 h-8 text-[#1A365D]" />
+                <div className="w-16 h-16 bg-[#1A365D]/10 flex items-center justify-center mb-6 group-hover:bg-[#1A365D]/20 transition-colors">
+                  <DollarSign className="w-8 h-8 text-[#1A365D]" aria-hidden="true" />
                 </div>
                 <h3 className="text-xl font-bold text-slate-900 mb-3 whitespace-nowrap">Excessive OEM Costs</h3>
                 <p className="text-slate-600 leading-relaxed">
@@ -246,11 +279,10 @@ export default function Index() {
             </Card>
 
             {/* Problem 4 */}
-            <Card className="bg-slate-50 border border-slate-200 shadow-sm hover:shadow-md transition-all duration-300 group relative overflow-hidden rounded-none">
-              <div className="absolute top-0 left-0 w-1 h-full bg-[#1A365D]"></div>
+            <Card className="bg-white border border-slate-200 border-t-4 border-t-[#1A365D] shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group relative overflow-hidden rounded-none">
               <CardContent className="p-8">
-                <div className="w-14 h-14 bg-[#1A365D]/5 flex items-center justify-center mb-6 group-hover:bg-[#1A365D]/10 transition-colors">
-                  <AlertTriangle className="w-8 h-8 text-[#1A365D]" />
+                <div className="w-16 h-16 bg-[#1A365D]/10 flex items-center justify-center mb-6 group-hover:bg-[#1A365D]/20 transition-colors">
+                  <AlertTriangle className="w-8 h-8 text-[#1A365D]" aria-hidden="true" />
                 </div>
                 <h3 className="text-xl font-bold text-slate-900 mb-3 whitespace-nowrap">Quality Variance</h3>
                 <p className="text-slate-600 leading-relaxed">
@@ -259,11 +291,21 @@ export default function Index() {
               </CardContent>
             </Card>
           </div>
+          <div className="mt-10 flex flex-wrap items-center gap-4">
+            <Link to="/contact-us">
+              <Button className="bg-amber-500 hover:bg-amber-600 text-white font-bold px-6">
+                Get a Trial Order Quote
+              </Button>
+            </Link>
+            <Link to="/shredder-blades" className="text-slate-700 font-semibold hover:text-amber-600 transition-colors">
+              Explore Blade Solutions →
+            </Link>
+          </div>
         </div>
       </section>
 
       {/* How We Help Section - Full Width */}
-      <section className="py-16 bg-gradient-to-br from-[#1A365D] to-[#0f2944] text-white">
+      <section className="py-12 bg-gradient-to-br from-[#1A365D] to-[#0f2944] text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             {/* Left Side - Title & Description */}
@@ -337,8 +379,49 @@ export default function Index() {
         </div>
       </section>
 
+      {/* Engineering Excellence Section - Shaft Types */}
+      <section className="py-10 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Main Title */}
+          <div className="text-left mb-12">
+            <h2 className="text-4xl font-bold text-gray-900 mb-4">
+              Engineered Metallurgy for Different Shaft
+            </h2>
+            <p className="text-lg text-slate-600">
+              Precision-engineered blade solutions optimized for single, double, and four-shaft shredder configurations
+            </p>
+          </div>
+
+          {/* Shaft Types - 3 Cards */}
+          <div className="grid md:grid-cols-3 gap-8 mb-10">
+            {shaftTypes.map((shaft, index) => (
+              <Card key={index} className="bg-white border border-slate-200 shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden">
+                <div className="relative h-48 overflow-hidden">
+                  <img
+                    src={getHomeImage(shaft.image)}
+                    alt={shaft.title}
+                    className="w-full h-full object-cover"
+                    loading="lazy"
+                    decoding="async"
+                    fetchPriority="low"
+                    width={640}
+                    height={384}
+                  />
+                </div>
+                <CardContent className="p-8">
+                  <h3 className="text-2xl font-bold text-slate-900 mb-4">{shaft.title}</h3>
+                  <p className="text-slate-600 leading-relaxed">
+                    {shaft.description}
+                  </p>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Applications Section */}
-      <section className="py-24 bg-slate-50">
+      <section className="py-16 bg-slate-50">
         <div className="w-full px-2 sm:px-4">
           <div className="text-left mb-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <h2 className="text-4xl font-bold text-gray-900 mb-4">
@@ -352,7 +435,7 @@ export default function Index() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-stretch max-w-7xl mx-auto">
             {applications.map((app, index) => (
               <Link key={index} to={app.link} className="group block cursor-pointer w-full">
-                <div className="relative overflow-hidden bg-slate-900 shadow-lg hover:shadow-2xl transition-all duration-300 w-full aspect-[3/2]">
+                <div className="relative overflow-hidden bg-slate-900 shadow-lg hover:shadow-2xl transition-all duration-300 w-full aspect-[16/10]">
                   {/* Background Image */}
                   <div className="absolute inset-0 bg-gray-700">
                     <picture>
@@ -368,6 +451,7 @@ export default function Index() {
                         className="w-full h-full object-cover opacity-70 group-hover:opacity-90 group-hover:scale-105 transition-all duration-500"
                         loading="lazy"
                         decoding="async"
+                        sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
                         fetchPriority="low"
                       />
                     </picture>
@@ -380,6 +464,9 @@ export default function Index() {
                   <div className="relative h-full flex flex-col justify-between p-6 z-10">
                     {/* Title at top left */}
                     <div>
+                      <div className="inline-flex items-center text-xs font-semibold uppercase tracking-widest bg-amber-500/20 text-amber-200 px-3 py-1 rounded-full mb-3">
+                        Application
+                      </div>
                       <div className="text-sm text-slate-300 font-regular mb-1 group-hover:text-amber-300 transition-colors duration-300">
                         Shredder Blades for
                       </div>
@@ -403,45 +490,8 @@ export default function Index() {
         </div>
       </section>
 
-      {/* Engineering Excellence Section - Shaft Types */}
-      <section className="py-12 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Main Title */}
-          <div className="text-left mb-12">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">
-              Engineered Metallurgy for Different Shaft
-            </h2>
-            <p className="text-lg text-slate-600">
-              Precision-engineered blade solutions optimized for single, double, and four-shaft shredder configurations
-            </p>
-          </div>
-
-          {/* Shaft Types - 3 Cards */}
-          <div className="grid md:grid-cols-3 gap-8 mb-16">
-            {shaftTypes.map((shaft, index) => (
-              <Card key={index} className="bg-white border border-slate-200 shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden">
-                <div className="relative h-48 overflow-hidden">
-                  <img
-                    src={getHomeImage(shaft.image)}
-                    alt={shaft.title}
-                    className="w-full h-full object-cover"
-                    loading="lazy"
-                  />
-                </div>
-                <CardContent className="p-8">
-                  <h3 className="text-2xl font-bold text-slate-900 mb-4">{shaft.title}</h3>
-                  <p className="text-slate-600 leading-relaxed">
-                    {shaft.description}
-                  </p>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* Manufacturing Process Section */}
-      <section className="py-24 bg-slate-50">
+      <section className="py-16 bg-slate-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-left mb-16">
             <h2 className="text-4xl font-bold text-gray-900 mb-4">
@@ -454,7 +504,8 @@ export default function Index() {
 
           <div className="relative overflow-hidden">
             <div 
-              className="flex gap-4 sm:gap-6 blade-gallery-scroll"
+              ref={manufacturingScrollRef}
+              className="flex gap-4 sm:gap-6 blade-gallery-scroll scroll-smooth"
             >
               {[...manufacturingSteps, ...manufacturingSteps].map((step, index) => (
                 <div key={`${step.fileName}-${index}`} className="flex-shrink-0 w-64 sm:w-80">
@@ -466,6 +517,8 @@ export default function Index() {
                       loading="lazy"
                       decoding="async"
                       fetchPriority="low"
+                      width={320}
+                      height={224}
                     />
                     <div className="p-4 text-center">
                       <h3 className="text-lg font-semibold text-slate-900">{step.title}</h3>
